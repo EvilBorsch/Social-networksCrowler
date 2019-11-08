@@ -5,7 +5,8 @@
 #include "../Id_list_generator_strategy/Ok_id_list_generator_strategy.h"
 #include "../Id_list_generator_strategy/Facebook_id_list_generator_strategy.h"
 #include "../Crowler.h"
-#include "../Curl.h"
+#include <iostream>
+#include <pthread.h>
 
 
 #include "gtest/gtest.h"
@@ -185,7 +186,7 @@ TEST_F(TestListGenerator,test_facebook_lg){
 }
 
 
-TEST(CurlerTests,Curltest){
+TEST(CurlTests, Curltest) {
     Curl curler;
     string response=curler.request("https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.103");
 
@@ -196,6 +197,29 @@ TEST(CurlerTests,Curltest){
     ASSERT_EQ("",curler.request("asd"));
 
 }
+
+TEST(CrowlerTest, test) {
+    int status = 0;
+    int pid;
+    int fd[2];
+    pipe(fd);
+
+    VkAPI vk("asd");
+    Vk_id_list_generator_strategy vk_lg(5, "../..");
+    Crowler cr(&vk, &vk_lg, fd);
+
+    pid = fork();
+    if (pid == 0) {
+        cr.start_crowl();
+    }
+
+    sleep(4);
+    cr.stop_crowl_and_save_id_list();
+    waitpid(pid, &status, 0);
+    ASSERT_TRUE(false);
+
+}
+
 
 
 
