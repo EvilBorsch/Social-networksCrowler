@@ -9,3 +9,7 @@ vector<string> Ok_id_list_generator_strategy::generate() {
 vector<string> Ok_id_list_generator_strategy::load_urls_from_disk(){
     return vector<string>();
 }
+
+string Ok_id_list_generator_strategy::get_path() {
+    return path;
+}

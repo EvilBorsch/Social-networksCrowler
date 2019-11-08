@@ -3,4 +3,10 @@ project(kursach_final)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(kursach_final main.cpp Curl.h Curl.cpp AbstractAPI.h VkAPI.h VkAPI.cpp Abstract_id_list_generator_strategy.h Vk_id_list_generator_strategy.h Vk_id_list_generator_strategy.cpp Crowler.h Crowler.cpp Ok_id_list_generator_strategy.h Ok_id_list_generator_strategy.cpp Facebook_id_list_generator_strategy.h Facebook_id_list_generator_strategy.cpp)
+
+
+add_subdirectory(Google_tests)
+
+add_executable(kursach_final main.cpp Curl.h Curl.cpp AbstractAPI.h API/VkAPI.h API/VkAPI.cpp Abstract_id_list_generator_strategy.h Id_list_generator_strategy/Vk_id_list_generator_strategy.h Id_list_generator_strategy/Vk_id_list_generator_strategy.cpp Crowler.h Crowler.cpp Id_list_generator_strategy/Ok_id_list_generator_strategy.h Id_list_generator_strategy/Ok_id_list_generator_strategy.cpp Id_list_generator_strategy/Facebook_id_list_generator_strategy.h Id_list_generator_strategy/Facebook_id_list_generator_strategy.cpp API/OkAPI.cpp API/OkAPI.h API/FacebookAPI.cpp API/FacebookAPI.h)
+#target_link_libraries(kursach_final gtest gtest_main)
+

@@ -1,7 +1,7 @@
 #include "Crowler.h"
 #include <iostream>
 
-Container Crowler::get_container_from_urls(vector<string> &&urls) {
+Container Crowler::get_container_from_urls(const vector<string> &urls) {
     return Container();
 }
 
@@ -9,7 +9,6 @@ Container Crowler::get_container_from_urls(vector<string> &&urls) {
 Crowler::Crowler(AbstractAPI *m_api, Abstract_id_list_generator_strategy *m_lg) {
     api = m_api;
     lg = m_lg;
-
 }
 
 void add(Container cont) {
@@ -21,7 +20,7 @@ void Crowler::start_crowl() {
         id_list = lg->generate();
         for (const auto &id: id_list) {
             vector<string> photo_urls = api->get_photo_urls_by_id(id);
-            Container cont = get_container_from_urls(std::move(photo_urls));
+            Container cont = get_container_from_urls(photo_urls);
             add(cont);
         }
     }

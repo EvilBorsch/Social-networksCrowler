@@ -10,9 +10,8 @@ class Crowler {
     bool state = true;
     AbstractAPI *api;
     Abstract_id_list_generator_strategy *lg;
-    vector<string> id_list = {};
-
-    Container get_container_from_urls(vector<string> &&urls);
+    vector<string> id_list;
+    Container get_container_from_urls(const vector<string> &urls);
 
 public:
     void start_crowl();
