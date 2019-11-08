@@ -4,6 +4,8 @@
 #include "../Id_list_generator_strategy/Vk_id_list_generator_strategy.h"
 #include "../Id_list_generator_strategy/Ok_id_list_generator_strategy.h"
 #include "../Id_list_generator_strategy/Facebook_id_list_generator_strategy.h"
+#include "../Crowler.h"
+#include "../Curl.h"
 
 
 #include "gtest/gtest.h"
@@ -16,6 +18,12 @@ protected:
         vk = new VkAPI("7175443");
         ok=new OkAPI("512000155176");
         facebook=new FacebookAPI("424256728258093");
+    }
+
+    void TearDown() override{
+        delete vk;
+        delete ok;
+        delete facebook;
     }
 
     VkAPI *vk;
@@ -108,6 +116,12 @@ protected:
         facebook_lg=new Facebook_id_list_generator_strategy(5,path);
     }
 
+    void TearDown() override{
+        delete vk_lg;
+        delete ok_lg;
+        delete facebook_lg;
+    }
+
     string path="../..";
     Vk_id_list_generator_strategy *vk_lg;
     Ok_id_list_generator_strategy *ok_lg;
@@ -169,6 +183,33 @@ TEST_F(TestListGenerator,test_facebook_lg){
             ,"https://www.facebook.com/profile.php?id=100026228050640"};
     EXPECT_EQ(ok_lg->generate(),generate_data);
 }
+
+
+TEST(CurlerTests,Curltest){
+    Curl curler;
+    string response=curler.request("https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.103");
+
+    string right_answer="{\"error\":{\"error_code\":5,\"error_msg\":\"User authorization failed: invalid access_token (4).\",\"request_params\":[{\"key\":\"user_ids\",\"value\":\"210700286\"},{\"key\":\"fields\",\"value\":\"bdate\"},{\"key\":\"v\",\"value\":\"5.103\"},{\"key\":\"method\",\"value\":\"users.get\"},{\"key\":\"oauth\",\"value\":\"1\"}]}}";
+
+    ASSERT_EQ(right_answer,response);
+
+    ASSERT_EQ("",curler.request("asd"));
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
