@@ -18,12 +18,8 @@ void add(Container cont) {
 }
 
 void Crowler::start_crowl() {
-
-
     int *buf = new int[1];
-    buf[0] = 3;
-    while (buf[0] != 2) {
-
+    while (buf[0] != get_state_stop()) {
         read(fd[0], buf, sizeof(buf));
         id_list = lg->generate();
         for (const auto &id: id_list) {
@@ -38,7 +34,7 @@ void Crowler::start_crowl() {
 
 void Crowler::stop_crowl_and_save_id_list() {
     int *testbuf = new int[1];
-    testbuf[0] = 2;
+    testbuf[0] = get_state_stop();
     write(fd[1], testbuf, sizeof(testbuf));
 }
 
@@ -46,3 +42,9 @@ void Crowler::set_api_and_id_generator_strategy(AbstractAPI *m_api, Abstract_id_
     api = m_api;
     lg = m_lg;
 }
+
+int Crowler::get_state_stop() {
+    return state_stop;
+}
+
+

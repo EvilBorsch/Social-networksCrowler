@@ -6,7 +6,7 @@
 #include "../Id_list_generator_strategy/Facebook_id_list_generator_strategy.h"
 #include "../Crowler.h"
 #include <iostream>
-#include <pthread.h>
+
 
 
 #include "gtest/gtest.h"
@@ -198,16 +198,15 @@ TEST(CurlTests, Curltest) {
 
 }
 
+
 TEST(CrowlerTest, test) {
     int status = 0;
     int pid;
     int fd[2];
     pipe(fd);
-
     VkAPI vk("asd");
     Vk_id_list_generator_strategy vk_lg(5, "../..");
     Crowler cr(&vk, &vk_lg, fd);
-
     pid = fork();
     if (pid == 0) {
         cr.start_crowl();
