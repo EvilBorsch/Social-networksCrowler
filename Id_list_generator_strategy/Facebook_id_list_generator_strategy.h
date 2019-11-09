@@ -1,4 +1,4 @@
-#include "../Abstract_id_list_generator_strategy.h"
+#include "../AbstractClasses/Abstract_id_list_generator_strategy.h"
 
 class Facebook_id_list_generator_strategy: public Abstract_id_list_generator_strategy{
 private:

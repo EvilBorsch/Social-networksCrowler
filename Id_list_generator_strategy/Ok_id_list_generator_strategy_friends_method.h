@@ -1,4 +1,4 @@
-#include "../Abstract_id_list_generator_strategy.h"
+#include "../AbstractClasses/Abstract_id_list_generator_strategy.h"
 
 class Ok_id_list_generator_strategy_friends_method : public Abstract_id_list_generator_strategy {
 private:

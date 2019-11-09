@@ -4,7 +4,7 @@
 #include "../Id_list_generator_strategy/Vk_id_list_generator_strategy.h"
 #include "../Id_list_generator_strategy/Ok_id_list_generator_strategy.h"
 #include "../Id_list_generator_strategy/Facebook_id_list_generator_strategy.h"
-#include "../Crowler.h"
+#include "../Crowler/Crowler.h"
 #include "../Id_list_generator_strategy/Ok_id_list_generator_strategy_friends_method.h"
 #include <iostream>
 

@@ -1,5 +1,5 @@
-#include "../AbstractAPI.h"
-#include "../Curl.h"
+#include "../AbstractClasses/AbstractAPI.h"
+#include "../Curl/Curl.h"
 #pragma once
 
 class FacebookAPI: public AbstractAPI{
