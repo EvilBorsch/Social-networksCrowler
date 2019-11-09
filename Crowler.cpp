@@ -2,6 +2,9 @@
 #include <iostream>
 #include <unistd.h>
 
+#define stop_state 2
+
+
 Container Crowler::get_container_from_urls(const vector<string> &urls) {
     return Container();
 }
@@ -18,8 +21,10 @@ void add(Container cont) {
 }
 
 void Crowler::start_crowl() {
+
     int *buf = new int[1];
-    while (buf[0] != get_state_stop()) {
+    read(fd[0], buf, sizeof(buf));
+    while (buf[0] != stop_state) {
         read(fd[0], buf, sizeof(buf));
         id_list = lg->generate();
         for (const auto &id: id_list) {
@@ -27,24 +32,19 @@ void Crowler::start_crowl() {
             Container cont = get_container_from_urls(photo_urls);
             add(cont);
         }
-
     }
 
 }
 
 void Crowler::stop_crowl_and_save_id_list() {
+
     int *testbuf = new int[1];
-    testbuf[0] = get_state_stop();
+    testbuf[0] = stop_state;
     write(fd[1], testbuf, sizeof(testbuf));
+
 }
 
-void Crowler::set_api_and_id_generator_strategy(AbstractAPI *m_api, Abstract_id_list_generator_strategy *m_lg) {
-    api = m_api;
-    lg = m_lg;
-}
 
-int Crowler::get_state_stop() {
-    return state_stop;
-}
+
 
 

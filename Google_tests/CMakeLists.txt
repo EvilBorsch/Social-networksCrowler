@@ -9,5 +9,5 @@ add_executable(Google_Tests_run API_tests.cpp ../API/VkAPI.h ../API/VkAPI.cpp
         ../API/FacebookAPI.cpp ../API/FacebookAPI.h
         ../Id_list_generator_strategy/Facebook_id_list_generator_strategy.cpp
         ../Id_list_generator_strategy/Facebook_id_list_generator_strategy.h
-        ../Curl.h ../Curl.cpp ../Crowler.h ../Crowler.cpp)
+        ../Curl.h ../Curl.cpp ../Crowler.h ../Crowler.cpp ../Id_list_generator_strategy/Ok_id_list_generator_strategy_friends_method.cpp ../Id_list_generator_strategy/Ok_id_list_generator_strategy_friends_method.h)
 target_link_libraries(Google_Tests_run gtest gtest_main)

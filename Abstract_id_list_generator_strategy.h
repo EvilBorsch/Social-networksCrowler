@@ -5,9 +5,13 @@
 
 using std::vector,std::string;
 class Abstract_id_list_generator_strategy{
+private:
+
 public:
     virtual vector<string> generate()=0;
     virtual ~Abstract_id_list_generator_strategy()= default;
-    virtual vector<string> load_urls_from_disk()=0;
-    virtual string get_path()=0;
+
+    vector<string> load_urls_from_disk(string path) {
+        return vector<string>();
+    };
 };

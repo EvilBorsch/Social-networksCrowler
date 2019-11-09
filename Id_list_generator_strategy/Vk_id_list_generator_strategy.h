@@ -10,6 +10,5 @@ public:
         path=m_path;
     }
     vector<string> generate() override ;
-    vector<string> load_urls_from_disk() override;
-    string get_path() override;
+
 };
