@@ -7,7 +7,7 @@ class Container {
 
 
 class Crowler {
-
+    const int stop_state = 2;
     Abstract_id_list_generator_strategy *lg;
     vector<string> id_list;
     Container get_container_from_urls(const vector<string> &urls);

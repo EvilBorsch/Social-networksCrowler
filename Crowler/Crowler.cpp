@@ -2,7 +2,6 @@
 #include <iostream>
 #include <unistd.h>
 
-#define stop_state 2
 
 
 Container Crowler::get_container_from_urls(const vector<string> &urls) {
