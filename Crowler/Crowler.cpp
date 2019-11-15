@@ -6,7 +6,7 @@
 
 
 Container Crowler::get_container_from_urls(const vector<string> &urls) {
-    return Container();
+    return {};
 }
 
 

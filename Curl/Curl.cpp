@@ -2,5 +2,5 @@
 
 
 std::string Curl::request(std::string url) {
-    return "lol";
+    return "";
 }

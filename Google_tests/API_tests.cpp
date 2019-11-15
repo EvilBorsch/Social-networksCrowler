@@ -61,8 +61,7 @@ TEST_F(TestAPI, testvk) {
 
 
 TEST_F(TestAPI, testok) {
-    //str
-    //gruppa https://ok.ru/group/61557801746474
+
     vector<string> ok_get_photo_ans = {"https://ok.ru/profile/575941399764/pphotos/879711732436",
                                        "https://ok.ru/profile/593221215274/pphotos/889758673450",
     };

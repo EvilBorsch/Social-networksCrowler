@@ -1,15 +1,18 @@
 #include <string>
 #include <vector>
+
 #pragma once
 
-using std::string,std::vector;
 
-class AbstractAPI{
+class AbstractAPI {
 public:
-    virtual vector<string> get_photo_urls_by_id(const string& url)=0;
-    virtual vector<string> get_friends_urls_by_id(const string& url)=0;
-    virtual vector<string> get_group_participants(const string& url)=0;
-    virtual ~AbstractAPI()= default;
+    virtual std::vector<std::string> get_photo_urls_by_id(const std::string &url) = 0;
+
+    virtual std::vector<std::string> get_friends_urls_by_id(const std::string &url) = 0;
+
+    virtual std::vector<std::string> get_group_participants(const std::string &url) = 0;
+
+    virtual ~AbstractAPI() = default;
 
 
 };
