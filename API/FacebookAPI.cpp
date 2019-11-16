@@ -2,19 +2,23 @@
 
 using std::vector, std::string;
 
-vector<string> FacebookAPI::get_photo_urls_by_id(const string &url) {
+vector<url> FacebookAPI::getPhotoUrlsById(const url &url) {
     return {};
 }
 
 
-FacebookAPI::FacebookAPI(const string &app_key) {
-
+FacebookAPI::FacebookAPI(const std::string &app_key) {
+    login(app_key);
 }
 
-vector<string> FacebookAPI::get_friends_urls_by_id(const string &url) {
+vector<url> FacebookAPI::getFriendsUrlsById(const url &url) {
     return {};
 }
 
-vector<string> FacebookAPI::get_group_participants(const string &url) {
+vector<url> FacebookAPI::getGroupParticipants(const url &url) {
     return {};
+}
+
+void FacebookAPI::login(std::string app_key) {
+
 }

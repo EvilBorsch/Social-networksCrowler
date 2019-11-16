@@ -8,12 +8,14 @@ private:
     Curl curler;
     std::string token;
 public:
-    std::vector<std::string> get_photo_urls_by_id(const std::string &url) override;
+    std::vector<url> getPhotoUrlsById(const url &url) override;
 
-    std::vector<std::string> get_friends_urls_by_id(const std::string &url) override;
+    std::vector<url> getFriendsUrlsById(const url &url) override;
 
-    std::vector<std::string> get_group_participants(const std::string &url) override;
+    std::vector<url> getGroupParticipants(const url &url) override;
 
     explicit VkAPI(const std::string &app_key);
+
+    void login(std::string app_key) override;
 
 };

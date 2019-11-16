@@ -1,8 +1,8 @@
 #include <string>
-
+#include "../response/response.h"
 #pragma once
 
 class Curl {
 public:
-    std::string request(std::string url);
+    response request(std::string url);
 };
