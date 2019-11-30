@@ -30,9 +30,9 @@ protected:
         delete facebook;
     }
 
-    VkAPI *vk;
-    OkAPI *ok;
-    FacebookAPI *facebook;
+    VkAPI *vk{};
+    OkAPI *ok{};
+    FacebookAPI *facebook{};
 
 
 };
@@ -252,14 +252,14 @@ TEST_F(TestListGenerator, test_ok_friends_lg) {
 
 
 TEST(CurlTests, Curltest) {
-    Curl curler;
+    NetService curler;
     response m_response = curler.request(
-            "https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.103");
+            url("https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.103"));
 
     string right_answer = R"({"error":{"error_code":5,"error_msg":"User authorization failed: invalid access_token (4).","request_params":[{"key":"user_ids","value":"210700286"},{"key":"fields","value":"bdate"},{"key":"v","value":"5.103"},{"key":"method","value":"users.get"},{"key":"oauth","value":"1"}]}})";
 
     ASSERT_EQ(right_answer, m_response.get_body());
 
-    ASSERT_EQ("", curler.request("asd").get_body());
+    ASSERT_EQ("", curler.request(url("asd")).get_body());
 
 }

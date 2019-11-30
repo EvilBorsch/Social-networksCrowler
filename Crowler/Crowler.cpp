@@ -31,7 +31,8 @@ void Crowler::startCrowl() {
             add(cont);
         }
     }
-
+    close(fd[0]);
+    delete[] buf;
 }
 
 void Crowler::stopCrowlAndSaveIdList() {
@@ -39,10 +40,6 @@ void Crowler::stopCrowlAndSaveIdList() {
     int *testbuf = new int[1];
     testbuf[0] = stopState;
     write(fd[1], testbuf, sizeof(testbuf));
-
+    close(fd[1]);
+    delete[] testbuf;
 }
-
-
-
-
-

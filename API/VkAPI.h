@@ -1,11 +1,11 @@
 #include "../AbstractClasses/AbstractAPI.h"
-#include "../Curl/Curl.h"
+#include "../NetService/NetService.h"
 
 #pragma once
 
 class VkAPI : public AbstractAPI {
 private:
-    Curl curler;
+    NetService net;
     std::string token;
 public:
     std::vector<url> getPhotoUrlsById(const url &url) override;
@@ -15,6 +15,7 @@ public:
     std::vector<url> getGroupParticipants(const url &url) override;
 
     explicit VkAPI(const std::string &app_key);
+
 
     void login(std::string app_key) override;
 

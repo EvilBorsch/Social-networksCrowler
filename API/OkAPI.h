@@ -1,11 +1,11 @@
 #include "../AbstractClasses/AbstractAPI.h"
-#include "../Curl/Curl.h"
+#include "../NetService/NetService.h"
 
 #pragma once
 
 class OkAPI : public AbstractAPI {
 private:
-    Curl curler;
+    NetService curler;
     std::string token;
 public:
     std::vector<url> getPhotoUrlsById(const url &url) override;

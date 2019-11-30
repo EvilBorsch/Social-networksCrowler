@@ -12,6 +12,7 @@ class Crowler {
     std::vector<url> id_list;
 
     Container getContainerFromUrls(const std::vector<url> &urls);
+
     int *fd;
     AbstractAPI *api;
 public:
