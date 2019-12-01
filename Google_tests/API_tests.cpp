@@ -9,6 +9,7 @@
 #include <iostream>
 #include "../url/url.h"
 
+
 #include "gtest/gtest.h"
 #include <fstream>
 
@@ -20,6 +21,7 @@ protected:
 
     void SetUp() override {
         vk = new VkAPI("7175443");
+        vk->login();
         ok = new OkAPI("512000155176");
         facebook = new FacebookAPI("424256728258093");
     }
@@ -39,16 +41,25 @@ protected:
 
 
 TEST_F(TestAPI, testvk) {
-    url temp1("cchhiill?z=photo184059480_456241996%2Falbum184059480_0%2Frev");
-    url temp2("photo184059480_457242377%2Falbum184059480_0%2Frev");
-    url temp3("photo184059480_456240854%2Falbum184059480_0%2Frev");
-    url temp4("photo184059480_456240763%2Falbum184059480_0%2Frev");
-    url temp5("sergeiptrnk");
-    url temp6("id358547266");
-    url temp7("nukenova2016");
-    url temp8("id399688365");
-    url temp9("id418671513");
+    url m_url;
+    m_url.getVkPhotosRequestUrl(vk->getToken(), 184059480);
+
+    url temp1("https://sun9-52.userapi.com/c840232/v840232112/8561d/Y-q_hZJtpDk.jpg");
+    url temp2("https://sun9-35.userapi.com/c847122/v847122689/2137f/pdHUHTavt1U.jpg");
+    url temp3("https://sun9-60.userapi.com/c850224/v850224350/186544/v6ooSacR0r0.jpg");
+    url temp4("https://sun9-14.userapi.com/c844321/v844321164/1e3f38/sjVui97PcoU.jpg");
     vector<url> vk_get_photo_ans = {temp1, temp2, temp3, temp4};
+
+    std::vector<url> vec=vk->getPhotoUrlsById(m_url);
+
+    EXPECT_EQ(vk->getPhotoUrlsById(m_url), vk_get_photo_ans);
+
+    url temp5("/sergeiptrnk", "vk");
+    url temp6("/id358547266", "vk");
+    url temp7("/nukenova2016", "vk");
+    url temp8("/id399688365", "vk");
+    url temp9("/id418671513", "vk");
+
     vector<url> vk_get_friends_ans = {temp5};
     vector<url> vk_get_group_ans = {temp6, temp7, temp8, temp9};
 
@@ -57,7 +68,6 @@ TEST_F(TestAPI, testvk) {
     url groupId("club143457610");
 
 
-    EXPECT_EQ(vk->getPhotoUrlsById(photoId), vk_get_photo_ans);
     EXPECT_EQ(vk->getFriendsUrlsById(friendsId), vk_get_friends_ans);
     EXPECT_EQ(vk->getGroupParticipants(groupId), vk_get_group_ans);
 
@@ -158,7 +168,8 @@ protected:
 
     void SetUp() override {
 
-        vk_lg = new VkIdListGeneratorStrategy(5, pathvk);
+        vk_lg = new VkIdListGeneratorStrategy(5, pathvk,
+                                              "af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9");
         ok_lg = new OkIdListGeneratorStrategy(5, pathok);
         facebook_lg = new FacebookIdListGeneratorStrategy(5, pathfacebook);
         ok_lg_friends = new OkIdListGeneratorStrategyFriends(3, pathokfriends);
@@ -170,7 +181,7 @@ protected:
         delete facebook_lg;
     }
 
-    string pathvk = "../../test_vk.txt";
+    string pathvk = "/Users/dmitrijgulacenkov/CrowlerDump/vkId.txt";
 
     string pathok = "../../test_ok.txt";
 
@@ -187,19 +198,19 @@ protected:
 
 TEST_F(TestListGenerator, test_vk_lg) {
 
-    vector<url> vec = {url("123"), url("124"), url("125"), url("126"), url("127")};
-    std::ofstream fout(pathvk, std::ios_base::out);
 
-    for (auto &el:vec) {
-        fout << el.toStr();
-    }
-    fout.close();
 
-    vector<url> data = vk_lg->loadUrls(pathvk);
-    EXPECT_EQ(data, vec);
+    std::vector<url> vec = vk_lg->generate();
 
-    vector<url> generate_data = {url("128"), url("129"), url("130"), url("131"), url("132")};
-    EXPECT_EQ(vk_lg->generate(), generate_data);
+    std::vector<url> res={url("https://api.vk.com/method/photos.get?owner_id=1235&album_id=profile&access_token=af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9&v=5.103"),
+                          url("https://api.vk.com/method/photos.get?owner_id=1236&album_id=profile&access_token=af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9&v=5.103"),
+                          url("https://api.vk.com/method/photos.get?owner_id=1237&album_id=profile&access_token=af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9&v=5.103"),
+                          url("https://api.vk.com/method/photos.get?owner_id=1238&album_id=profile&access_token=af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9&v=5.103"),
+                          url("https://api.vk.com/method/photos.get?owner_id=1239&album_id=profile&access_token=af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9&v=5.103")};
+
+    EXPECT_EQ(vec,res);
+
+
 
 }
 

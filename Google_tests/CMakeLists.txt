@@ -13,3 +13,9 @@ add_executable(Google_Tests_run API_tests.cpp ../API/VkAPI.h ../API/VkAPI.cpp
         ../NetService/NetService.h ../NetService/NetService.cpp ../Crowler/Crowler.h ../Crowler/Crowler.cpp ../Id_list_generator_strategy/Ok_id_list_generator_strategy_friends_method.cpp ../Id_list_generator_strategy/Ok_id_list_generator_strategy_friends_method.h
         ../url/url.h ../response/response.h ../response/response.cpp)
 target_link_libraries(Google_Tests_run gtest gtest_main)
+set(CURL_LIBRARY "-lcurl")
+find_package(CURL REQUIRED)
+include_directories(${CURL_INCLUDE_DIR})
+target_link_libraries(Google_Tests_run ${CURL_LIBRARIES})
+find_package(Boost COMPONENTS system filesystem REQUIRED)
+include_directories(${Boost_INCLUDE_DIR})

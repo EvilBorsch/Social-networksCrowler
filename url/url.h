@@ -58,8 +58,22 @@ private:
 
 public:
 
-    explicit url(const std::string &st) {
-        parse(st);
+    explicit url(const std::string &st, const std::string type = "full") {
+        if (type == "vk") {
+            protocol = "httos://";
+            host = "vk.com";
+            base_url = st;
+        } else if (type == "ok") {
+            protocol = "https://";
+            host = "ok.ru";
+            base_url = st;
+        } else if (type == "facebook") {
+            protocol = "https://";
+            host = "ok.ru";
+            base_url = st;
+        } else {
+            parse(st);
+        }
     }
 
 
