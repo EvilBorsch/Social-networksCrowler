@@ -31,8 +31,8 @@ vector<url> VkAPI::getPhotoUrlsById(const url &m_url) {
 }
 
 
-VkAPI::VkAPI(const string &app_key) {
-
+VkAPI::VkAPI(const string &m_app_key) {
+    app_key = m_app_key;
 }
 
 vector<url> VkAPI::getFriendsUrlsById(const url &url) {
@@ -43,6 +43,14 @@ vector<url> VkAPI::getGroupParticipants(const url &url) {
     return {};
 }
 
-void VkAPI::login(std::string app_key) {
+void VkAPI::login() {
+    //url mUrl;
+    //mUrl.getVkLoginRequestUrl(app_key);
+    //response resp=net.request(mUrl);
+    token = "af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9";
 
+}
+
+const string &VkAPI::getToken() const {
+    return token;
 }

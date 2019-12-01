@@ -8,7 +8,7 @@ vector<url> FacebookAPI::getPhotoUrlsById(const url &url) {
 
 
 FacebookAPI::FacebookAPI(const std::string &app_key) {
-    login(app_key);
+
 }
 
 vector<url> FacebookAPI::getFriendsUrlsById(const url &url) {
@@ -19,6 +19,6 @@ vector<url> FacebookAPI::getGroupParticipants(const url &url) {
     return {};
 }
 
-void FacebookAPI::login(std::string app_key) {
+void FacebookAPI::login() {
 
 }

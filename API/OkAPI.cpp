@@ -19,7 +19,7 @@ vector<url> OkAPI::getGroupParticipants(const url &url) {
     return {};
 }
 
-void OkAPI::login(std::string app_key) {
+void OkAPI::login() {
 
 }
 

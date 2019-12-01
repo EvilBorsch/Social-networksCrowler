@@ -8,8 +8,22 @@
 
 class url {
 
-    std::string base_url = "";
+public:
+    const std::string &getBaseUrl() const {
+        return base_url;
+    }
 
+    const std::string &getProtocol() const {
+        return protocol;
+    }
+
+    const std::string &getHost() const {
+        return host;
+    }
+
+private:
+
+    std::string base_url = "";
     std::string protocol = "";
     std::string host = "";
 
@@ -61,8 +75,32 @@ public:
     }
 
 
+    void vkStyleId(std::string id) {
+        protocol = "https://";
+        host = "vk.com";
+        base_url = "?" + id;
+    }
+
+    void getVkPhotosRequestUrl(std::string token, size_t id) {
+        protocol = "https://";
+        host = "api.vk.com";
+
+        base_url = "/method/photos.get?owner_id=" + std::to_string(id) + "&album_id=profile&access_token=" + token +
+                   "&v=5.103";
+    }
+
+
+    void getVkLoginRequestUrl(std::string app_key) {
+        protocol = "https://";
+        host = "oauth.vk.com";
+        base_url = "/authorize?client_id=" + app_key +
+                   "&display=page&redirect_uri=https://oauth.vk.com/blank.html&scope=friends&response_type=token&v=5.52";
+
+    }
+
+
     friend bool operator==(const url &m_url1, const url &m_url) {
-        return true;
+        return true; //TODO
     }
 
 

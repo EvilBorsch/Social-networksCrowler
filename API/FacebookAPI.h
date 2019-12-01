@@ -16,7 +16,7 @@ public:
 
     explicit FacebookAPI(const std::string &app_key);
 
-    void login(std::string app_key) override;
+    void login() override;
 
 
 };

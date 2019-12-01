@@ -7,7 +7,10 @@ class VkAPI : public AbstractAPI {
 private:
     NetService net;
     std::string token;
+    std::string app_key;
 public:
+    [[nodiscard]] const std::string &getToken() const;
+
     std::vector<url> getPhotoUrlsById(const url &url) override;
 
     std::vector<url> getFriendsUrlsById(const url &url) override;
@@ -17,6 +20,6 @@ public:
     explicit VkAPI(const std::string &app_key);
 
 
-    void login(std::string app_key) override;
+    void login() override;
 
 };
