@@ -42,7 +42,7 @@ protected:
 
 TEST_F(TestAPI, testvk) {
     url m_url;
-    m_url.getVkPhotosRequestUrl(vk->getToken(), 184059480);
+    m_url.getVkPhotosRequestUrl(vk->getToken(), "184059480");
 
     url temp1("https://sun9-52.userapi.com/c840232/v840232112/8561d/Y-q_hZJtpDk.jpg");
     url temp2("https://sun9-35.userapi.com/c847122/v847122689/2137f/pdHUHTavt1U.jpg");
@@ -202,11 +202,11 @@ TEST_F(TestListGenerator, test_vk_lg) {
 
     std::vector<url> vec = vk_lg->generate();
 
-    std::vector<url> res={url("https://api.vk.com/method/photos.get?owner_id=1235&album_id=profile&access_token=af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9&v=5.103"),
-                          url("https://api.vk.com/method/photos.get?owner_id=1236&album_id=profile&access_token=af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9&v=5.103"),
-                          url("https://api.vk.com/method/photos.get?owner_id=1237&album_id=profile&access_token=af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9&v=5.103"),
-                          url("https://api.vk.com/method/photos.get?owner_id=1238&album_id=profile&access_token=af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9&v=5.103"),
-                          url("https://api.vk.com/method/photos.get?owner_id=1239&album_id=profile&access_token=af2d806eaf2d806eaf2d806e66af40fd7daaf2daf2d806ef28431079864b75a45b322d9&v=5.103")};
+    std::vector<url> res={url("id=1235","vk"),
+                          url("id=1236","vk"),
+                          url("id=1237","vk"),
+                          url("id=1238","vk"),
+                          url("id=1239","vk")};
 
     EXPECT_EQ(vec,res);
 

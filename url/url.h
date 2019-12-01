@@ -62,15 +62,15 @@ public:
         if (type == "vk") {
             protocol = "httos://";
             host = "vk.com";
-            base_url = st;
+            base_url = "/" + st;
         } else if (type == "ok") {
             protocol = "https://";
             host = "ok.ru";
-            base_url = st;
+            base_url = "/" + st;
         } else if (type == "facebook") {
             protocol = "https://";
             host = "ok.ru";
-            base_url = st;
+            base_url = "/" + st;
         } else {
             parse(st);
         }
@@ -92,14 +92,23 @@ public:
     void vkStyleId(std::string id) {
         protocol = "https://";
         host = "vk.com";
-        base_url = "?" + id;
+        base_url = "/id" + id;
     }
 
-    void getVkPhotosRequestUrl(std::string token, size_t id) {
+
+    std::string getVkId() const {
+        std::string id = "";
+        for (int i = 3; i < base_url.size(); i++) {
+            id += base_url[i];
+        }
+        return id;
+    }
+
+    void getVkPhotosRequestUrl(std::string token, std::string id) {
         protocol = "https://";
         host = "api.vk.com";
 
-        base_url = "/method/photos.get?owner_id=" + std::to_string(id) + "&album_id=profile&access_token=" + token +
+        base_url = "/method/photos.get?owner_id=" + id + "&album_id=profile&access_token=" + token +
                    "&v=5.103";
     }
 
@@ -113,8 +122,9 @@ public:
     }
 
 
-    friend bool operator==(const url &m_url1, const url &m_url) {
-        return true; //TODO
+    friend bool operator==(const url &m_url1, const url &m_url2) {
+        if (m_url1.base_url==m_url2.base_url && m_url1.host==m_url2.host && m_url1.protocol==m_url2.protocol) return true;
+        return false;
     }
 
 

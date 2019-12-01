@@ -22,7 +22,9 @@ void getPhotosBySizeInResponseData(boost::property_tree::ptree const &pt, std::v
 }
 
 vector<url> VkAPI::getPhotoUrlsById(const url &m_url) {
-    response resp = net.request(m_url);
+    url requestUrl;
+    requestUrl.getVkPhotosRequestUrl(token,m_url.getVkId());
+    response resp = net.request(requestUrl);
     std::vector<url> vec;
     getPhotosBySizeInResponseData(resp.getData(), vec);
 

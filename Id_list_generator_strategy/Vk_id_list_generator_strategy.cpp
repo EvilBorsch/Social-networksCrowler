@@ -7,7 +7,8 @@ std::vector<url> VkIdListGeneratorStrategy::generate() {
     std::vector<url> vec;
     for (size_t i = currentId + 1; i < currentId + 1 + size; i++) {
 
-        mUrl.getVkPhotosRequestUrl(token, i);
+        //mUrl.getVkPhotosRequestUrl(token, i);
+        mUrl.vkStyleId(std::to_string(i));
         vec.push_back(mUrl);
 
     }
