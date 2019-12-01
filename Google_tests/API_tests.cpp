@@ -181,7 +181,7 @@ protected:
         delete facebook_lg;
     }
 
-    string pathvk = "/Users/dmitrijgulacenkov/CrowlerDump/vkId.txt";
+    string pathvk = "/Users/dmitrijgulacenkov/CrowlerDump/CrowlerTest/vkId.txt";
 
     string pathok = "../../test_ok.txt";
 

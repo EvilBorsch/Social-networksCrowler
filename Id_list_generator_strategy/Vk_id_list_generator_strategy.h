@@ -22,5 +22,7 @@ public:
 
     size_t getCurrentId();
 
+    void save();
+
 
 };

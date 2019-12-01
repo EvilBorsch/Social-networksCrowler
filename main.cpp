@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
         for (auto lol : res2) {
             std::cout << lol.toStr() << std::endl;
         }
+        vkId.save();
     }
 
 
