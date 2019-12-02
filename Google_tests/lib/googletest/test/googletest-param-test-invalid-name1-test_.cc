@@ -36,13 +36,13 @@ namespace {
 
     TEST_P(DummyTest, Dummy
     ) {
-}
+    }
 
-INSTANTIATE_TEST_SUITE_P(InvalidTestName,
-        DummyTest,
-        ::testing::Values("InvalidWithQuotes"),
-        ::testing::PrintToStringParamName()
-);
+    INSTANTIATE_TEST_SUITE_P(InvalidTestName,
+                             DummyTest,
+                             ::testing::Values("InvalidWithQuotes"),
+                             ::testing::PrintToStringParamName()
+    );
 
 }  // namespace
 

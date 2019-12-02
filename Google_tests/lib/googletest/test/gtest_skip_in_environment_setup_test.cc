@@ -40,7 +40,8 @@ public:
 
 TEST(Test, AlwaysFails
 ) {
-EXPECT_EQ(true, false); }
+    EXPECT_EQ(true, false);
+}
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);

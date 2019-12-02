@@ -78,38 +78,38 @@ namespace {
 //     handling of the premature-exit file.
     TEST_F(PrematureExitDeathTest, FileExistsDuringExecutionOfDeathTest
     ) {
-    if (*premature_exit_file_path_ == '\0') {
-    return;
-}
+        if (*premature_exit_file_path_ == '\0') {
+            return;
+        }
 
-EXPECT_DEATH_IF_SUPPORTED({
+        EXPECT_DEATH_IF_SUPPORTED({
 // If the file exists, crash the process such that the main test
 // process will catch the (expected) crash and report a success;
 // otherwise don't crash, which will cause the main test process
 // to report that the death test has failed.
-if (
+                                      if (
 
-PrematureExitFileExists()
+                                              PrematureExitFileExists()
 
-) {
-exit(1);
-}
-}, "");
-}
+                                              ) {
+                                          exit(1);
+                                      }
+                                  }, "");
+    }
 
 // Tests that the premature-exit file exists during the execution of a
 // normal (non-death) test.
-TEST_F(PrematureExitTest, PrematureExitFileExistsDuringTestExecution
-) {
-if (*premature_exit_file_path_ == '\0') {
-return;
-}
+    TEST_F(PrematureExitTest, PrematureExitFileExistsDuringTestExecution
+    ) {
+        if (*premature_exit_file_path_ == '\0') {
+            return;
+        }
 
-EXPECT_TRUE (PrematureExitFileExists())
+        EXPECT_TRUE (PrematureExitFileExists())
 
-<< " file " << premature_exit_file_path_
-<< " should exist during test execution, but doesn't.";
-}
+                            << " file " << premature_exit_file_path_
+                            << " should exist during test execution, but doesn't.";
+    }
 
 }  // namespace
 

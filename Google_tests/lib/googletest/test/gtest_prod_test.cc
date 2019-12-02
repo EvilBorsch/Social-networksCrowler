@@ -37,11 +37,11 @@
 // a friend of the class.
 TEST(PrivateCodeTest, CanAccessPrivateMembers
 ) {
-PrivateCode a;
-EXPECT_EQ(0, a.x_);
+    PrivateCode a;
+    EXPECT_EQ(0, a.x_);
 
-a.set_x(1);
-EXPECT_EQ(1, a.x_);
+    a.set_x(1);
+    EXPECT_EQ(1, a.x_);
 }
 
 typedef testing::Test PrivateCodeFixtureTest;
@@ -50,9 +50,9 @@ typedef testing::Test PrivateCodeFixtureTest;
 // as a friend of the class.
 TEST_F(PrivateCodeFixtureTest, CanAccessPrivateMembers
 ) {
-PrivateCode a;
-EXPECT_EQ(0, a.x_);
+    PrivateCode a;
+    EXPECT_EQ(0, a.x_);
 
-a.set_x(2);
-EXPECT_EQ(2, a.x_);
+    a.set_x(2);
+    EXPECT_EQ(2, a.x_);
 }

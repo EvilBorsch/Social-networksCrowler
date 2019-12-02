@@ -1,5 +1,7 @@
 #include "../AbstractClasses/AbstractAPI.h"
 #include "../AbstractClasses/Abstract_id_list_generator_strategy.h"
+#include <boost/thread.hpp>
+#include <boost/chrono.hpp>
 
 class Container {
 
@@ -9,18 +11,24 @@ class Container {
 class Crowler {
     const int stopState = 2;
     AbstractIdListGeneratorStrategy *lg;
-    std::vector<url> id_list;
+    boost::thread *t;
 
     Container getContainerFromUrls(const std::vector<url> &urls);
 
-    int *fd;
+
     AbstractAPI *api;
 public:
     void startCrowl();
 
-    void stopCrowlAndSaveIdList();
+    void crowl();
 
-    Crowler(AbstractAPI *m_api, AbstractIdListGeneratorStrategy *m_lg, int *fd);
+    void stopCrowl();
+
+    Crowler(AbstractAPI *m_api, AbstractIdListGeneratorStrategy *m_lg);
+
+    void wait(int seconds) {
+        boost::this_thread::sleep_for(boost::chrono::seconds{seconds});
+    }
 
 
 };

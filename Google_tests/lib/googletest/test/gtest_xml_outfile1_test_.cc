@@ -41,5 +41,5 @@ protected:
 
 TEST_F(PropertyOne, TestSomeProperties
 ) {
-RecordProperty("TestSomeProperty", 1);
+    RecordProperty("TestSomeProperty", 1);
 }

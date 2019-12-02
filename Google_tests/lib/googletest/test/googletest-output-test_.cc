@@ -91,95 +91,96 @@ class FailingParamTest : public testing::TestWithParam<int> {
 
 TEST_P(FailingParamTest, Fails
 ) {
-EXPECT_EQ(1,
+    EXPECT_EQ(1,
 
-GetParam()
+              GetParam()
 
-);
+    );
 }
 
 // This generates a test which will fail. Google Test is expected to print
 // its parameter when it outputs the list of all failed tests.
 INSTANTIATE_TEST_SUITE_P(PrintingFailingParams,
-        FailingParamTest,
-        testing::Values(2)
+                         FailingParamTest,
+                         testing::Values(2)
 );
 
 static const char kGoldenString[] = "\"Line\0 1\"\nLine 2";
 
 TEST(NonfatalFailureTest, EscapesStringOperands
 ) {
-std::string actual = "actual \"string\"";
-EXPECT_EQ(kGoldenString, actual
-);
+    std::string actual = "actual \"string\"";
+    EXPECT_EQ(kGoldenString, actual
+    );
 
-const char *golden = kGoldenString;
-EXPECT_EQ(golden, actual
-);
+    const char *golden = kGoldenString;
+    EXPECT_EQ(golden, actual
+    );
 }
 
 TEST(NonfatalFailureTest, DiffForLongStrings
 ) {
-std::string golden_str(kGoldenString, sizeof(kGoldenString) - 1);
-EXPECT_EQ(golden_str,
-"Line 2");
+    std::string golden_str(kGoldenString, sizeof(kGoldenString) - 1);
+    EXPECT_EQ(golden_str,
+              "Line 2");
 }
 
 // Tests catching a fatal failure in a subroutine.
 TEST(FatalFailureTest, FatalFailureInSubroutine
 ) {
-printf("(expecting a failure that x should be 1)\n");
+    printf("(expecting a failure that x should be 1)\n");
 
-TryTestSubroutine();
+    TryTestSubroutine();
 
 }
 
 // Tests catching a fatal failure in a nested subroutine.
 TEST(FatalFailureTest, FatalFailureInNestedSubroutine
 ) {
-printf("(expecting a failure that x should be 1)\n");
+    printf("(expecting a failure that x should be 1)\n");
 
 // Calls a subrountine that yields a fatal failure.
-TryTestSubroutine();
+    TryTestSubroutine();
 
 // Catches the fatal failure and aborts the test.
 //
 // When calling HasFatalFailure() inside a TEST, TEST_F, or test
 // fixture, the testing::Test:: prefix is not needed.
-if (
+    if (
 
-HasFatalFailure()
+            HasFatalFailure()
 
-) return;
+            )
+        return;
 
 // If we get here, something is wrong.
-FAIL()
+    FAIL()
 
-<< "This should never be reached.";
+                    << "This should never be reached.";
 }
 
 // Tests HasFatalFailure() after a failed EXPECT check.
 TEST(FatalFailureTest, NonfatalFailureInSubroutine
 ) {
-printf("(expecting a failure on false)\n");
-EXPECT_TRUE(false);  // Generates a nonfatal failure
-ASSERT_FALSE (HasFatalFailure());  // This should succeed.
+    printf("(expecting a failure on false)\n");
+    EXPECT_TRUE(false);  // Generates a nonfatal failure
+    ASSERT_FALSE (HasFatalFailure());  // This should succeed.
 }
 
 // Tests interleaving user logging and Google Test assertions.
 TEST(LoggingTest, InterleavingLoggingAndAssertions
 ) {
-static const int a[4] = {
-        3, 9, 2, 6
-};
+    static const int a[4] = {
+            3, 9, 2, 6
+    };
 
-printf("(expecting 2 failures on (3) >= (a[i]))\n");
-for (
-int i = 0;
-i < static_cast<int>(sizeof(a)/sizeof(*a)); i++) {
-printf("i == %d\n", i);
-EXPECT_GE(3, a[i]);
-}
+    printf("(expecting 2 failures on (3) >= (a[i]))\n");
+    for (
+            int i = 0;
+            i < static_cast<int>(sizeof(a) / sizeof(*a)); i++) {
+        printf("i == %d\n", i);
+        EXPECT_GE(3, a[i]);
+    }
 }
 
 // Tests the SCOPED_TRACE macro.
@@ -199,112 +200,112 @@ void SubWithTrace(int n) {
 
 TEST(SCOPED_TRACETest, AcceptedValues
 ) {
-SCOPED_TRACE("literal string");
-SCOPED_TRACE(std::string("std::string")
-);
-SCOPED_TRACE(1337);  // streamable type
-const char *null_value = nullptr;
-SCOPED_TRACE(null_value);
+    SCOPED_TRACE("literal string");
+    SCOPED_TRACE(std::string("std::string")
+    );
+    SCOPED_TRACE(1337);  // streamable type
+    const char *null_value = nullptr;
+    SCOPED_TRACE(null_value);
 
-ADD_FAILURE()
+    ADD_FAILURE()
 
-<< "Just checking that all these values work fine.";
+            << "Just checking that all these values work fine.";
 }
 
 // Tests that SCOPED_TRACE() obeys lexical scopes.
 TEST(SCOPED_TRACETest, ObeysScopes
 ) {
-printf("(expected to fail)\n");
+    printf("(expected to fail)\n");
 
 // There should be no trace before SCOPED_TRACE() is invoked.
-ADD_FAILURE()
+    ADD_FAILURE()
 
-<< "This failure is expected, and shouldn't have a trace.";
+            << "This failure is expected, and shouldn't have a trace.";
 
-{
-SCOPED_TRACE("Expected trace");
+    {
+        SCOPED_TRACE("Expected trace");
 
 // After SCOPED_TRACE(), a failure in the current scope should contain
 // the trace.
-ADD_FAILURE()
+        ADD_FAILURE()
 
-<< "This failure is expected, and should have a trace.";
-}
+                << "This failure is expected, and should have a trace.";
+    }
 
 // Once the control leaves the scope of the SCOPED_TRACE(), there
 // should be no trace again.
-ADD_FAILURE()
+    ADD_FAILURE()
 
-<< "This failure is expected, and shouldn't have a trace.";
+            << "This failure is expected, and shouldn't have a trace.";
 }
 
 // Tests that SCOPED_TRACE works inside a loop.
 TEST(SCOPED_TRACETest, WorksInLoop
 ) {
-printf("(expected to fail)\n");
+    printf("(expected to fail)\n");
 
-for (
-int i = 1;
-i <= 2; i++) {
-SCOPED_TRACE (testing::Message()
+    for (
+            int i = 1;
+            i <= 2; i++) {
+        SCOPED_TRACE (testing::Message()
 
-<< "i = " << i);
+                              << "i = " << i);
 
-SubWithoutTrace(i);
-}
+        SubWithoutTrace(i);
+    }
 }
 
 // Tests that SCOPED_TRACE works in a subroutine.
 TEST(SCOPED_TRACETest, WorksInSubroutine
 ) {
-printf("(expected to fail)\n");
+    printf("(expected to fail)\n");
 
-SubWithTrace(1);
-SubWithTrace(2);
+    SubWithTrace(1);
+    SubWithTrace(2);
 }
 
 // Tests that SCOPED_TRACE can be nested.
 TEST(SCOPED_TRACETest, CanBeNested
 ) {
-printf("(expected to fail)\n");
+    printf("(expected to fail)\n");
 
-SCOPED_TRACE("");  // A trace without a message.
+    SCOPED_TRACE("");  // A trace without a message.
 
-SubWithTrace(2);
+    SubWithTrace(2);
 }
 
 // Tests that multiple SCOPED_TRACEs can be used in the same scope.
 TEST(SCOPED_TRACETest, CanBeRepeated
 ) {
-printf("(expected to fail)\n");
+    printf("(expected to fail)\n");
 
-SCOPED_TRACE("A");
+    SCOPED_TRACE("A");
 
-ADD_FAILURE()
+    ADD_FAILURE()
 
-<< "This failure is expected, and should contain trace point A.";
+            << "This failure is expected, and should contain trace point A.";
 
-SCOPED_TRACE("B");
+    SCOPED_TRACE("B");
 
-ADD_FAILURE()
+    ADD_FAILURE()
 
-<< "This failure is expected, and should contain trace point A and B.";
+            << "This failure is expected, and should contain trace point A and B.";
 
-{
-SCOPED_TRACE("C");
+    {
+        SCOPED_TRACE("C");
 
-ADD_FAILURE()
+        ADD_FAILURE()
 
-<< "This failure is expected, and should "
-<< "contain trace point A, B, and C.";
-}
+                << "This failure is expected, and should "
+                << "contain trace point A, B, and C.";
+    }
 
-SCOPED_TRACE("D");
+    SCOPED_TRACE("D");
 
-ADD_FAILURE()
+    ADD_FAILURE()
 
-<< "This failure is expected, and should "
-<< "contain trace point A, B, and D.";
+            << "This failure is expected, and should "
+            << "contain trace point A, B, and D.";
 }
 
 #if GTEST_IS_THREADSAFE
@@ -338,64 +339,65 @@ ADD_FAILURE()
 //   waits for thread B to finish   |
 
 struct CheckPoints {
-  Notification n1;
-  Notification n2;
-  Notification n3;
+    Notification n1;
+    Notification n2;
+    Notification n3;
 };
 
-static void ThreadWithScopedTrace(CheckPoints* check_points) {
-  {
-    SCOPED_TRACE("Trace B");
-    ADD_FAILURE()
-        << "Expected failure #1 (in thread B, only trace B alive).";
-    check_points->n1.Notify();
-    check_points->n2.WaitForNotification();
+static void ThreadWithScopedTrace(CheckPoints *check_points) {
+    {
+        SCOPED_TRACE("Trace B");
+        ADD_FAILURE()
+                << "Expected failure #1 (in thread B, only trace B alive).";
+        check_points->n1.Notify();
+        check_points->n2.WaitForNotification();
 
+        ADD_FAILURE()
+                << "Expected failure #3 (in thread B, trace A & B both alive).";
+    }  // Trace B dies here.
     ADD_FAILURE()
-        << "Expected failure #3 (in thread B, trace A & B both alive).";
-  }  // Trace B dies here.
-  ADD_FAILURE()
-      << "Expected failure #4 (in thread B, only trace A alive).";
-  check_points->n3.Notify();
+            << "Expected failure #4 (in thread B, only trace A alive).";
+    check_points->n3.Notify();
 }
 
 TEST(SCOPED_TRACETest, WorksConcurrently) {
-  printf("(expecting 6 failures)\n");
+    printf("(expecting 6 failures)\n");
 
-  CheckPoints check_points;
-  ThreadWithParam<CheckPoints*> thread(&ThreadWithScopedTrace, &check_points,
-                                       nullptr);
-  check_points.n1.WaitForNotification();
+    CheckPoints check_points;
+    ThreadWithParam<CheckPoints *> thread(&ThreadWithScopedTrace, &check_points,
+                                          nullptr);
+    check_points.n1.WaitForNotification();
 
-  {
-    SCOPED_TRACE("Trace A");
+    {
+        SCOPED_TRACE("Trace A");
+        ADD_FAILURE()
+                << "Expected failure #2 (in thread A, trace A & B both alive).";
+        check_points.n2.Notify();
+        check_points.n3.WaitForNotification();
+
+        ADD_FAILURE()
+                << "Expected failure #5 (in thread A, only trace A alive).";
+    }  // Trace A dies here.
     ADD_FAILURE()
-        << "Expected failure #2 (in thread A, trace A & B both alive).";
-    check_points.n2.Notify();
-    check_points.n3.WaitForNotification();
-
-    ADD_FAILURE()
-        << "Expected failure #5 (in thread A, only trace A alive).";
-  }  // Trace A dies here.
-  ADD_FAILURE()
-      << "Expected failure #6 (in thread A, no trace alive).";
-  thread.Join();
+            << "Expected failure #6 (in thread A, no trace alive).";
+    thread.Join();
 }
+
 #endif  // GTEST_IS_THREADSAFE
 
 // Tests basic functionality of the ScopedTrace utility (most of its features
 // are already tested in SCOPED_TRACETest).
 TEST(ScopedTraceTest, WithExplicitFileAndLine
 ) {
-testing::ScopedTrace trace("explicit_file.cc", 123, "expected trace message");
+    testing::ScopedTrace trace("explicit_file.cc", 123, "expected trace message");
 
-ADD_FAILURE()
+    ADD_FAILURE()
 
-<< "Check that the trace is attached to a particular location.";
+            << "Check that the trace is attached to a particular location.";
 }
 
 TEST(DisabledTestsWarningTest,
-        DISABLED_AlsoRunDisabledTestsFlagSuppressesWarning
+     DISABLED_AlsoRunDisabledTestsFlagSuppressesWarning
 ) {
 // This test body is intentionally empty.  Its sole purpose is for
 // verifying that the --gtest_also_run_disabled_tests flag
@@ -439,9 +441,9 @@ protected:
 
 TEST_F(NonFatalFailureInFixtureConstructorTest, FailureInConstructor
 ) {
-ADD_FAILURE()
+    ADD_FAILURE()
 
-<< "Expected failure #3, in the test body.";
+            << "Expected failure #3, in the test body.";
 }
 
 // Tests fatal failures in the fixture constructor.
@@ -476,11 +478,11 @@ private:
 
 TEST_F(FatalFailureInFixtureConstructorTest, FailureInConstructor
 ) {
-ADD_FAILURE()
+    ADD_FAILURE()
 
-<< "UNEXPECTED failure in the test body.  "
-<< "We should never get here, as the test fixture c'tor "
-<< "had a fatal failure.";
+            << "UNEXPECTED failure in the test body.  "
+            << "We should never get here, as the test fixture c'tor "
+            << "had a fatal failure.";
 }
 
 // Tests non-fatal failures in SetUp().
@@ -503,9 +505,9 @@ private:
 
 TEST_F(NonFatalFailureInSetUpTest, FailureInSetUp
 ) {
-FAIL()
+    FAIL()
 
-<< "Expected failure #2, in the test function.";
+                    << "Expected failure #2, in the test function.";
 }
 
 // Tests fatal failures in SetUp().
@@ -528,75 +530,76 @@ private:
 
 TEST_F(FatalFailureInSetUpTest, FailureInSetUp
 ) {
-FAIL()
+    FAIL()
 
-<< "UNEXPECTED failure in the test function.  "
-<< "We should never get here, as SetUp() failed.";
+                    << "UNEXPECTED failure in the test function.  "
+                    << "We should never get here, as SetUp() failed.";
 }
 
 TEST(AddFailureAtTest, MessageContainsSpecifiedFileAndLineNumber
 ) {
-ADD_FAILURE_AT("foo.cc", 42) << "Expected nonfatal failure in foo.cc";
+    ADD_FAILURE_AT("foo.cc", 42) << "Expected nonfatal failure in foo.cc";
 }
 
 TEST(GtestFailAtTest, MessageContainsSpecifiedFileAndLineNumber
 ) {
-GTEST_FAIL_AT("foo.cc", 42) << "Expected fatal failure in foo.cc";
+    GTEST_FAIL_AT("foo.cc", 42) << "Expected fatal failure in foo.cc";
 }
 
 #if GTEST_IS_THREADSAFE
 
 // A unary function that may die.
 void DieIf(bool should_die) {
-  GTEST_CHECK_(!should_die) << " - death inside DieIf().";
+    GTEST_CHECK_(!should_die) << " - death inside DieIf().";
 }
 
 // Tests running death tests in a multi-threaded context.
 
 // Used for coordination between the main and the spawn thread.
 struct SpawnThreadNotifications {
-  SpawnThreadNotifications() {}
+    SpawnThreadNotifications() {}
 
-  Notification spawn_thread_started;
-  Notification spawn_thread_ok_to_terminate;
+    Notification spawn_thread_started;
+    Notification spawn_thread_ok_to_terminate;
 
- private:
-  GTEST_DISALLOW_COPY_AND_ASSIGN_(SpawnThreadNotifications);
+private:
+    GTEST_DISALLOW_COPY_AND_ASSIGN_(SpawnThreadNotifications);
 };
 
 // The function to be executed in the thread spawn by the
 // MultipleThreads test (below).
-static void ThreadRoutine(SpawnThreadNotifications* notifications) {
-  // Signals the main thread that this thread has started.
-  notifications->spawn_thread_started.Notify();
+static void ThreadRoutine(SpawnThreadNotifications *notifications) {
+    // Signals the main thread that this thread has started.
+    notifications->spawn_thread_started.Notify();
 
-  // Waits for permission to finish from the main thread.
-  notifications->spawn_thread_ok_to_terminate.WaitForNotification();
+    // Waits for permission to finish from the main thread.
+    notifications->spawn_thread_ok_to_terminate.WaitForNotification();
 }
 
 // This is a death-test test, but it's not named with a DeathTest
 // suffix.  It starts threads which might interfere with later
 // death tests, so it must run after all other death tests.
 class DeathTestAndMultiThreadsTest : public testing::Test {
- protected:
-  // Starts a thread and waits for it to begin.
-  void SetUp() override {
-    thread_.reset(new ThreadWithParam<SpawnThreadNotifications*>(
-        &ThreadRoutine, &notifications_, nullptr));
-    notifications_.spawn_thread_started.WaitForNotification();
-  }
-  // Tells the thread to finish, and reaps it.
-  // Depending on the version of the thread library in use,
-  // a manager thread might still be left running that will interfere
-  // with later death tests.  This is unfortunate, but this class
-  // cleans up after itself as best it can.
-  void TearDown() override {
-    notifications_.spawn_thread_ok_to_terminate.Notify();
-  }
+protected:
+    // Starts a thread and waits for it to begin.
+    void SetUp() override {
+        thread_.reset(new ThreadWithParam<SpawnThreadNotifications *>(
+                &ThreadRoutine, &notifications_, nullptr));
+        notifications_.spawn_thread_started.WaitForNotification();
+    }
 
- private:
-  SpawnThreadNotifications notifications_;
-  std::unique_ptr<ThreadWithParam<SpawnThreadNotifications*> > thread_;
+    // Tells the thread to finish, and reaps it.
+    // Depending on the version of the thread library in use,
+    // a manager thread might still be left running that will interfere
+    // with later death tests.  This is unfortunate, but this class
+    // cleans up after itself as best it can.
+    void TearDown() override {
+        notifications_.spawn_thread_ok_to_terminate.Notify();
+    }
+
+private:
+    SpawnThreadNotifications notifications_;
+    std::unique_ptr<ThreadWithParam<SpawnThreadNotifications *> > thread_;
 };
 
 #endif  // GTEST_IS_THREADSAFE
@@ -618,18 +621,19 @@ namespace foo {
 
     TEST_F(MixedUpTestSuiteTest, FirstTestFromNamespaceFoo
     ) {
-}
-TEST_F(MixedUpTestSuiteTest, SecondTestFromNamespaceFoo
-) {
-}
+    }
 
-class MixedUpTestSuiteWithSameTestNameTest : public testing::Test {
-};
+    TEST_F(MixedUpTestSuiteTest, SecondTestFromNamespaceFoo
+    ) {
+    }
 
-TEST_F(MixedUpTestSuiteWithSameTestNameTest,
-        TheSecondTestWithThisNameShouldFail
-) {
-}
+    class MixedUpTestSuiteWithSameTestNameTest : public testing::Test {
+    };
+
+    TEST_F(MixedUpTestSuiteWithSameTestNameTest,
+           TheSecondTestWithThisNameShouldFail
+    ) {
+    }
 
 }  // namespace foo
 
@@ -642,20 +646,21 @@ namespace bar {
 // golden file to check that Google Test generates the right error message.
     TEST_F(MixedUpTestSuiteTest, ThisShouldFail
     ) {
-}
-TEST_F(MixedUpTestSuiteTest, ThisShouldFailToo
-) {
-}
+    }
 
-class MixedUpTestSuiteWithSameTestNameTest : public testing::Test {
-};
+    TEST_F(MixedUpTestSuiteTest, ThisShouldFailToo
+    ) {
+    }
+
+    class MixedUpTestSuiteWithSameTestNameTest : public testing::Test {
+    };
 
 // Expected to fail.  We rely on the golden file to check that Google Test
 // generates the right error message.
-TEST_F(MixedUpTestSuiteWithSameTestNameTest,
-        TheSecondTestWithThisNameShouldFail
-) {
-}
+    TEST_F(MixedUpTestSuiteWithSameTestNameTest,
+           TheSecondTestWithThisNameShouldFail
+    ) {
+    }
 
 }  // namespace bar
 
@@ -696,81 +701,81 @@ int global_integer = 0;
 // Tests that EXPECT_NONFATAL_FAILURE() can reference global variables.
 TEST(ExpectNonfatalFailureTest, CanReferenceGlobalVariables
 ) {
-global_integer = 0;
-EXPECT_NONFATAL_FAILURE({
-EXPECT_EQ(1, global_integer) << "Expected non-fatal failure.";
-}, "Expected non-fatal failure.");
+    global_integer = 0;
+    EXPECT_NONFATAL_FAILURE({
+                                EXPECT_EQ(1, global_integer) << "Expected non-fatal failure.";
+                            }, "Expected non-fatal failure.");
 }
 
 // Tests that EXPECT_NONFATAL_FAILURE() can reference local variables
 // (static or not).
 TEST(ExpectNonfatalFailureTest, CanReferenceLocalVariables
 ) {
-int m = 0;
-static int n;
-n = 1;
-EXPECT_NONFATAL_FAILURE({
-EXPECT_EQ(m, n
-) << "Expected non-fatal failure.";
-}, "Expected non-fatal failure.");
+    int m = 0;
+    static int n;
+    n = 1;
+    EXPECT_NONFATAL_FAILURE({
+                                EXPECT_EQ(m, n
+                                ) << "Expected non-fatal failure.";
+                            }, "Expected non-fatal failure.");
 }
 
 // Tests that EXPECT_NONFATAL_FAILURE() succeeds when there is exactly
 // one non-fatal failure and no fatal failure.
 TEST(ExpectNonfatalFailureTest, SucceedsWhenThereIsOneNonfatalFailure
 ) {
-EXPECT_NONFATAL_FAILURE({
-ADD_FAILURE()
+    EXPECT_NONFATAL_FAILURE({
+                                ADD_FAILURE()
 
-<< "Expected non-fatal failure.";
-}, "Expected non-fatal failure.");
+                                        << "Expected non-fatal failure.";
+                            }, "Expected non-fatal failure.");
 }
 
 // Tests that EXPECT_NONFATAL_FAILURE() fails when there is no
 // non-fatal failure.
 TEST(ExpectNonfatalFailureTest, FailsWhenThereIsNoNonfatalFailure
 ) {
-printf("(expecting a failure)\n");
-EXPECT_NONFATAL_FAILURE({
-}, "");
+    printf("(expecting a failure)\n");
+    EXPECT_NONFATAL_FAILURE({
+                            }, "");
 }
 
 // Tests that EXPECT_NONFATAL_FAILURE() fails when there are two
 // non-fatal failures.
 TEST(ExpectNonfatalFailureTest, FailsWhenThereAreTwoNonfatalFailures
 ) {
-printf("(expecting a failure)\n");
-EXPECT_NONFATAL_FAILURE({
-ADD_FAILURE()
+    printf("(expecting a failure)\n");
+    EXPECT_NONFATAL_FAILURE({
+                                ADD_FAILURE()
 
-<< "Expected non-fatal failure 1.";
+                                        << "Expected non-fatal failure 1.";
 
-ADD_FAILURE()
+                                ADD_FAILURE()
 
-<< "Expected non-fatal failure 2.";
-}, "");
+                                        << "Expected non-fatal failure 2.";
+                            }, "");
 }
 
 // Tests that EXPECT_NONFATAL_FAILURE() fails when there is one fatal
 // failure.
 TEST(ExpectNonfatalFailureTest, FailsWhenThereIsOneFatalFailure
 ) {
-printf("(expecting a failure)\n");
-EXPECT_NONFATAL_FAILURE({
-FAIL()
+    printf("(expecting a failure)\n");
+    EXPECT_NONFATAL_FAILURE({
+                                FAIL()
 
-<< "Expected fatal failure.";
-}, "");
+                                        << "Expected fatal failure.";
+                            }, "");
 }
 
 // Tests that EXPECT_NONFATAL_FAILURE() fails when the statement being
 // tested returns.
 TEST(ExpectNonfatalFailureTest, FailsWhenStatementReturns
 ) {
-printf("(expecting a failure)\n");
-EXPECT_NONFATAL_FAILURE({
-return;
-}, "");
+    printf("(expecting a failure)\n");
+    EXPECT_NONFATAL_FAILURE({
+                                return;
+                            }, "");
 }
 
 #if GTEST_HAS_EXCEPTIONS
@@ -778,13 +783,13 @@ return;
 // Tests that EXPECT_NONFATAL_FAILURE() fails when the statement being
 // tested throws.
 TEST(ExpectNonfatalFailureTest, FailsWhenStatementThrows) {
-  printf("(expecting a failure)\n");
-  try {
-    EXPECT_NONFATAL_FAILURE({
-      throw 0;
-    }, "");
-  } catch(int) {  // NOLINT
-  }
+    printf("(expecting a failure)\n");
+    try {
+        EXPECT_NONFATAL_FAILURE({
+                                    throw 0;
+                                }, "");
+    } catch (int) {  // NOLINT
+    }
 }
 
 #endif  // GTEST_HAS_EXCEPTIONS
@@ -792,41 +797,41 @@ TEST(ExpectNonfatalFailureTest, FailsWhenStatementThrows) {
 // Tests that EXPECT_FATAL_FAILURE() can reference global variables.
 TEST(ExpectFatalFailureTest, CanReferenceGlobalVariables
 ) {
-global_integer = 0;
-EXPECT_FATAL_FAILURE({
-ASSERT_EQ(1, global_integer) << "Expected fatal failure.";
-}, "Expected fatal failure.");
+    global_integer = 0;
+    EXPECT_FATAL_FAILURE({
+                             ASSERT_EQ(1, global_integer) << "Expected fatal failure.";
+                         }, "Expected fatal failure.");
 }
 
 // Tests that EXPECT_FATAL_FAILURE() can reference local static
 // variables.
 TEST(ExpectFatalFailureTest, CanReferenceLocalStaticVariables
 ) {
-static int n;
-n = 1;
-EXPECT_FATAL_FAILURE({
-ASSERT_EQ(0, n) << "Expected fatal failure.";
-}, "Expected fatal failure.");
+    static int n;
+    n = 1;
+    EXPECT_FATAL_FAILURE({
+                             ASSERT_EQ(0, n) << "Expected fatal failure.";
+                         }, "Expected fatal failure.");
 }
 
 // Tests that EXPECT_FATAL_FAILURE() succeeds when there is exactly
 // one fatal failure and no non-fatal failure.
 TEST(ExpectFatalFailureTest, SucceedsWhenThereIsOneFatalFailure
 ) {
-EXPECT_FATAL_FAILURE({
-FAIL()
+    EXPECT_FATAL_FAILURE({
+                             FAIL()
 
-<< "Expected fatal failure.";
-}, "Expected fatal failure.");
+                                     << "Expected fatal failure.";
+                         }, "Expected fatal failure.");
 }
 
 // Tests that EXPECT_FATAL_FAILURE() fails when there is no fatal
 // failure.
 TEST(ExpectFatalFailureTest, FailsWhenThereIsNoFatalFailure
 ) {
-printf("(expecting a failure)\n");
-EXPECT_FATAL_FAILURE({
-}, "");
+    printf("(expecting a failure)\n");
+    EXPECT_FATAL_FAILURE({
+                         }, "");
 }
 
 // A helper for generating a fatal failure.
@@ -838,35 +843,35 @@ void FatalFailure() {
 // fatal failures.
 TEST(ExpectFatalFailureTest, FailsWhenThereAreTwoFatalFailures
 ) {
-printf("(expecting a failure)\n");
-EXPECT_FATAL_FAILURE({
-FatalFailure();
+    printf("(expecting a failure)\n");
+    EXPECT_FATAL_FAILURE({
+                             FatalFailure();
 
-FatalFailure();
+                             FatalFailure();
 
-}, "");
+                         }, "");
 }
 
 // Tests that EXPECT_FATAL_FAILURE() fails when there is one non-fatal
 // failure.
 TEST(ExpectFatalFailureTest, FailsWhenThereIsOneNonfatalFailure
 ) {
-printf("(expecting a failure)\n");
-EXPECT_FATAL_FAILURE({
-ADD_FAILURE()
+    printf("(expecting a failure)\n");
+    EXPECT_FATAL_FAILURE({
+                             ADD_FAILURE()
 
-<< "Expected non-fatal failure.";
-}, "");
+                                     << "Expected non-fatal failure.";
+                         }, "");
 }
 
 // Tests that EXPECT_FATAL_FAILURE() fails when the statement being
 // tested returns.
 TEST(ExpectFatalFailureTest, FailsWhenStatementReturns
 ) {
-printf("(expecting a failure)\n");
-EXPECT_FATAL_FAILURE({
-return;
-}, "");
+    printf("(expecting a failure)\n");
+    EXPECT_FATAL_FAILURE({
+                             return;
+                         }, "");
 }
 
 #if GTEST_HAS_EXCEPTIONS
@@ -874,13 +879,13 @@ return;
 // Tests that EXPECT_FATAL_FAILURE() fails when the statement being
 // tested throws.
 TEST(ExpectFatalFailureTest, FailsWhenStatementThrows) {
-  printf("(expecting a failure)\n");
-  try {
-    EXPECT_FATAL_FAILURE({
-      throw 0;
-    }, "");
-  } catch(int) {  // NOLINT
-  }
+    printf("(expecting a failure)\n");
+    try {
+        EXPECT_FATAL_FAILURE({
+                                 throw 0;
+                             }, "");
+    } catch (int) {  // NOLINT
+    }
 }
 
 #endif  // GTEST_HAS_EXCEPTIONS
@@ -896,59 +901,60 @@ class ParamTest : public testing::TestWithParam<std::string> {
 
 TEST_P(ParamTest, Success
 ) {
-EXPECT_EQ("a",
+    EXPECT_EQ("a",
 
-GetParam()
+              GetParam()
 
-);
+    );
 }
 
 TEST_P(ParamTest, Failure
 ) {
-EXPECT_EQ("b",
+    EXPECT_EQ("b",
 
-GetParam()
+              GetParam()
 
-) << "Expected failure";
+    ) << "Expected failure";
 }
 
 INSTANTIATE_TEST_SUITE_P(PrintingStrings,
-        ParamTest,
-        testing::Values(std::string("a")),
-        ParamNameFunc
+                         ParamTest,
+                         testing::Values(std::string("a")),
+                         ParamNameFunc
 );
 
 // This #ifdef block tests the output of typed tests.
 #if GTEST_HAS_TYPED_TEST
 
-template <typename T>
+template<typename T>
 class TypedTest : public testing::Test {
 };
 
 TYPED_TEST_SUITE(TypedTest, testing::Types<int>);
 
 TYPED_TEST(TypedTest, Success) {
-  EXPECT_EQ(0, TypeParam());
+    EXPECT_EQ(0, TypeParam());
 }
 
 TYPED_TEST(TypedTest, Failure) {
-  EXPECT_EQ(1, TypeParam()) << "Expected failure";
+    EXPECT_EQ(1, TypeParam()) << "Expected failure";
 }
 
 typedef testing::Types<char, int> TypesForTestWithNames;
 
-template <typename T>
-class TypedTestWithNames : public testing::Test {};
+template<typename T>
+class TypedTestWithNames : public testing::Test {
+};
 
 class TypedTestNames {
- public:
-  template <typename T>
-  static std::string GetName(int i) {
-    if (std::is_same<T, char>::value)
-      return std::string("char") + ::testing::PrintToString(i);
-    if (std::is_same<T, int>::value)
-      return std::string("int") + ::testing::PrintToString(i);
-  }
+public:
+    template<typename T>
+    static std::string GetName(int i) {
+        if (std::is_same<T, char>::value)
+            return std::string("char") + ::testing::PrintToString(i);
+        if (std::is_same<T, int>::value)
+            return std::string("int") + ::testing::PrintToString(i);
+    }
 };
 
 TYPED_TEST_SUITE(TypedTestWithNames, TypesForTestWithNames, TypedTestNames);
@@ -962,18 +968,18 @@ TYPED_TEST(TypedTestWithNames, Failure) { FAIL(); }
 // This #ifdef block tests the output of type-parameterized tests.
 #if GTEST_HAS_TYPED_TEST_P
 
-template <typename T>
+template<typename T>
 class TypedTestP : public testing::Test {
 };
 
 TYPED_TEST_SUITE_P(TypedTestP);
 
 TYPED_TEST_P(TypedTestP, Success) {
-  EXPECT_EQ(0U, TypeParam());
+    EXPECT_EQ(0U, TypeParam());
 }
 
 TYPED_TEST_P(TypedTestP, Failure) {
-  EXPECT_EQ(1U, TypeParam()) << "Expected failure";
+    EXPECT_EQ(1U, TypeParam()) << "Expected failure";
 }
 
 REGISTER_TYPED_TEST_SUITE_P(TypedTestP, Success, Failure);
@@ -982,20 +988,20 @@ typedef testing::Types<unsigned char, unsigned int> UnsignedTypes;
 INSTANTIATE_TYPED_TEST_SUITE_P(Unsigned, TypedTestP, UnsignedTypes);
 
 class TypedTestPNames {
- public:
-  template <typename T>
-  static std::string GetName(int i) {
-    if (std::is_same<T, unsigned char>::value) {
-      return std::string("unsignedChar") + ::testing::PrintToString(i);
+public:
+    template<typename T>
+    static std::string GetName(int i) {
+        if (std::is_same<T, unsigned char>::value) {
+            return std::string("unsignedChar") + ::testing::PrintToString(i);
+        }
+        if (std::is_same<T, unsigned int>::value) {
+            return std::string("unsignedInt") + ::testing::PrintToString(i);
+        }
     }
-    if (std::is_same<T, unsigned int>::value) {
-      return std::string("unsignedInt") + ::testing::PrintToString(i);
-    }
-  }
 };
 
 INSTANTIATE_TYPED_TEST_SUITE_P(UnsignedCustomName, TypedTestP, UnsignedTypes,
-                              TypedTestPNames);
+                               TypedTestPNames);
 
 #endif  // GTEST_HAS_TYPED_TEST_P
 
@@ -1012,7 +1018,7 @@ TEST(ADeathTest, ShouldRunFirst) {
 // We rely on the golden file to verify that typed tests whose test
 // case name ends with DeathTest are run first.
 
-template <typename T>
+template<typename T>
 class ATypedDeathTest : public testing::Test {
 };
 
@@ -1030,7 +1036,7 @@ TYPED_TEST(ATypedDeathTest, ShouldRunFirst) {
 // We rely on the golden file to verify that type-parameterized tests
 // whose test case name ends with DeathTest are run first.
 
-template <typename T>
+template<typename T>
 class ATypeParamDeathTest : public testing::Test {
 };
 
@@ -1068,72 +1074,72 @@ public:  // Must be public and not protected due to a bug in g++ 3.4.2.
 TEST_F(ExpectFailureTest, ExpectFatalFailure
 ) {
 // Expected fatal failure, but succeeds.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_FATAL_FAILURE(SUCCEED(),
+    EXPECT_FATAL_FAILURE(SUCCEED(),
 
-"Expected fatal failure.");
+                         "Expected fatal failure.");
 // Expected fatal failure, but got a non-fatal failure.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_FATAL_FAILURE(AddFailure(NONFATAL_FAILURE),
+    EXPECT_FATAL_FAILURE(AddFailure(NONFATAL_FAILURE),
 
-"Expected non-fatal "
-"failure.");
+                         "Expected non-fatal "
+                         "failure.");
 // Wrong message.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_FATAL_FAILURE(AddFailure(FATAL_FAILURE),
+    EXPECT_FATAL_FAILURE(AddFailure(FATAL_FAILURE),
 
-"Some other fatal failure "
-"expected.");
+                         "Some other fatal failure "
+                         "expected.");
 }
 
 TEST_F(ExpectFailureTest, ExpectNonFatalFailure
 ) {
 // Expected non-fatal failure, but succeeds.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_NONFATAL_FAILURE(SUCCEED(),
+    EXPECT_NONFATAL_FAILURE(SUCCEED(),
 
-"Expected non-fatal failure.");
+                            "Expected non-fatal failure.");
 // Expected non-fatal failure, but got a fatal failure.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_NONFATAL_FAILURE(AddFailure(FATAL_FAILURE),
+    EXPECT_NONFATAL_FAILURE(AddFailure(FATAL_FAILURE),
 
-"Expected fatal failure.");
+                            "Expected fatal failure.");
 // Wrong message.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_NONFATAL_FAILURE(AddFailure(NONFATAL_FAILURE),
+    EXPECT_NONFATAL_FAILURE(AddFailure(NONFATAL_FAILURE),
 
-"Some other non-fatal "
-"failure.");
+                            "Some other non-fatal "
+                            "failure.");
 }
 
 #if GTEST_IS_THREADSAFE
 
 class ExpectFailureWithThreadsTest : public ExpectFailureTest {
- protected:
-  static void AddFailureInOtherThread(FailureMode failure) {
-    ThreadWithParam<FailureMode> thread(&AddFailure, failure, nullptr);
-    thread.Join();
-  }
+protected:
+    static void AddFailureInOtherThread(FailureMode failure) {
+        ThreadWithParam<FailureMode> thread(&AddFailure, failure, nullptr);
+        thread.Join();
+    }
 };
 
 TEST_F(ExpectFailureWithThreadsTest, ExpectFatalFailure) {
-  // We only intercept the current thread.
-  printf("(expecting 2 failures)\n");
-  EXPECT_FATAL_FAILURE(AddFailureInOtherThread(FATAL_FAILURE),
-                       "Expected fatal failure.");
+    // We only intercept the current thread.
+    printf("(expecting 2 failures)\n");
+    EXPECT_FATAL_FAILURE(AddFailureInOtherThread(FATAL_FAILURE),
+                         "Expected fatal failure.");
 }
 
 TEST_F(ExpectFailureWithThreadsTest, ExpectNonFatalFailure) {
-  // We only intercept the current thread.
-  printf("(expecting 2 failures)\n");
-  EXPECT_NONFATAL_FAILURE(AddFailureInOtherThread(NONFATAL_FAILURE),
-                          "Expected non-fatal failure.");
+    // We only intercept the current thread.
+    printf("(expecting 2 failures)\n");
+    EXPECT_NONFATAL_FAILURE(AddFailureInOtherThread(NONFATAL_FAILURE),
+                            "Expected non-fatal failure.");
 }
 
 typedef ExpectFailureWithThreadsTest ScopedFakeTestPartResultReporterTest;
@@ -1141,17 +1147,17 @@ typedef ExpectFailureWithThreadsTest ScopedFakeTestPartResultReporterTest;
 // Tests that the ScopedFakeTestPartResultReporter only catches failures from
 // the current thread if it is instantiated with INTERCEPT_ONLY_CURRENT_THREAD.
 TEST_F(ScopedFakeTestPartResultReporterTest, InterceptOnlyCurrentThread) {
-  printf("(expecting 2 failures)\n");
-  TestPartResultArray results;
-  {
-    ScopedFakeTestPartResultReporter reporter(
-        ScopedFakeTestPartResultReporter::INTERCEPT_ONLY_CURRENT_THREAD,
-        &results);
-    AddFailureInOtherThread(FATAL_FAILURE);
-    AddFailureInOtherThread(NONFATAL_FAILURE);
-  }
-  // The two failures should not have been intercepted.
-  EXPECT_EQ(0, results.size()) << "This shouldn't fail.";
+    printf("(expecting 2 failures)\n");
+    TestPartResultArray results;
+    {
+        ScopedFakeTestPartResultReporter reporter(
+                ScopedFakeTestPartResultReporter::INTERCEPT_ONLY_CURRENT_THREAD,
+                &results);
+        AddFailureInOtherThread(FATAL_FAILURE);
+        AddFailureInOtherThread(NONFATAL_FAILURE);
+    }
+    // The two failures should not have been intercepted.
+    EXPECT_EQ(0, results.size()) << "This shouldn't fail.";
 }
 
 #endif  // GTEST_IS_THREADSAFE
@@ -1159,46 +1165,46 @@ TEST_F(ScopedFakeTestPartResultReporterTest, InterceptOnlyCurrentThread) {
 TEST_F(ExpectFailureTest, ExpectFatalFailureOnAllThreads
 ) {
 // Expected fatal failure, but succeeds.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_FATAL_FAILURE_ON_ALL_THREADS(SUCCEED(),
+    EXPECT_FATAL_FAILURE_ON_ALL_THREADS(SUCCEED(),
 
-"Expected fatal failure.");
+                                        "Expected fatal failure.");
 // Expected fatal failure, but got a non-fatal failure.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_FATAL_FAILURE_ON_ALL_THREADS(AddFailure(NONFATAL_FAILURE),
+    EXPECT_FATAL_FAILURE_ON_ALL_THREADS(AddFailure(NONFATAL_FAILURE),
 
-"Expected non-fatal failure.");
+                                        "Expected non-fatal failure.");
 // Wrong message.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_FATAL_FAILURE_ON_ALL_THREADS(AddFailure(FATAL_FAILURE),
+    EXPECT_FATAL_FAILURE_ON_ALL_THREADS(AddFailure(FATAL_FAILURE),
 
-"Some other fatal failure expected.");
+                                        "Some other fatal failure expected.");
 }
 
 TEST_F(ExpectFailureTest, ExpectNonFatalFailureOnAllThreads
 ) {
 // Expected non-fatal failure, but succeeds.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_NONFATAL_FAILURE_ON_ALL_THREADS(SUCCEED(),
+    EXPECT_NONFATAL_FAILURE_ON_ALL_THREADS(SUCCEED(),
 
-"Expected non-fatal "
-"failure.");
+                                           "Expected non-fatal "
+                                           "failure.");
 // Expected non-fatal failure, but got a fatal failure.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_NONFATAL_FAILURE_ON_ALL_THREADS(AddFailure(FATAL_FAILURE),
+    EXPECT_NONFATAL_FAILURE_ON_ALL_THREADS(AddFailure(FATAL_FAILURE),
 
-"Expected fatal failure.");
+                                           "Expected fatal failure.");
 // Wrong message.
-printf("(expecting 1 failure)\n");
+    printf("(expecting 1 failure)\n");
 
-EXPECT_NONFATAL_FAILURE_ON_ALL_THREADS(AddFailure(NONFATAL_FAILURE),
+    EXPECT_NONFATAL_FAILURE_ON_ALL_THREADS(AddFailure(NONFATAL_FAILURE),
 
-"Some other non-fatal failure.");
+                                           "Some other non-fatal failure.");
 }
 
 class DynamicFixture : public testing::Test {
@@ -1300,14 +1306,14 @@ int main(int argc, char **argv) {
 
 #if GTEST_HAS_DEATH_TEST
     if (testing::internal::GTEST_FLAG(internal_run_death_test) != "") {
-      // Skip the usual output capturing if we're running as the child
-      // process of an threadsafe-style death test.
+        // Skip the usual output capturing if we're running as the child
+        // process of an threadsafe-style death test.
 # if GTEST_OS_WINDOWS
-      posix::FReopen("nul:", "w", stdout);
+        posix::FReopen("nul:", "w", stdout);
 # else
-      posix::FReopen("/dev/null", "w", stdout);
+        posix::FReopen("/dev/null", "w", stdout);
 # endif  // GTEST_OS_WINDOWS
-      return RUN_ALL_TESTS();
+        return RUN_ALL_TESTS();
     }
 #endif  // GTEST_HAS_DEATH_TEST
 

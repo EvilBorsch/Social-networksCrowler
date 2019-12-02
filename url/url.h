@@ -29,15 +29,9 @@ private:
 
     void parse(const std::string &mUrl) {
 
-        if (mUrl[6] == '/' && mUrl[7] == '/') {
-            for (const char &ch:mUrl) {
-                if (ch == '/') break;
-                protocol += ch;
-            }
-            protocol += "//";
-        } else {
-            throw "not supported protocol";
-        }
+        std::copy(mUrl.begin(), mUrl.begin() + 8, std::back_inserter(protocol)); //TODO дописать все через copy в url
+
+
         std::string temp_data = "";
         size_t baseUrlIndex = 0;
         for (size_t i = 8; i < mUrl.length(); i++) {
@@ -60,7 +54,7 @@ public:
 
     explicit url(const std::string &st, const std::string type = "full") {
         if (type == "vk") {
-            protocol = "httos://";
+            protocol = "https://";
             host = "vk.com";
             base_url = "/" + st;
         } else if (type == "ok") {
@@ -123,7 +117,9 @@ public:
 
 
     friend bool operator==(const url &m_url1, const url &m_url2) {
-        if (m_url1.base_url==m_url2.base_url && m_url1.host==m_url2.host && m_url1.protocol==m_url2.protocol) return true;
+        if (m_url1.base_url == m_url2.base_url && m_url1.host == m_url2.host &&
+            m_url1.protocol == m_url2.protocol)
+            return true;
         return false;
     }
 

@@ -50,15 +50,15 @@ namespace {
 // A test that's expected to fail.
     TEST(Foo, Bar
     ) {
-    EXPECT_EQ(2, 3);
-}
+        EXPECT_EQ(2, 3);
+    }
 
 #if GTEST_HAS_SEH && !GTEST_OS_WINDOWS_MOBILE
-// On Windows Mobile global exception handlers are not supported.
-LONG WINAPI ExitWithExceptionCode(
-    struct _EXCEPTION_POINTERS* exception_pointers) {
-  exit(exception_pointers->ExceptionRecord->ExceptionCode);
-}
+    // On Windows Mobile global exception handlers are not supported.
+    LONG WINAPI ExitWithExceptionCode(
+        struct _EXCEPTION_POINTERS* exception_pointers) {
+      exit(exception_pointers->ExceptionRecord->ExceptionCode);
+    }
 #endif
 
 }  // namespace

@@ -8,38 +8,48 @@ Container Crowler::getContainerFromUrls(const std::vector<url> &urls) {
 }
 
 
-Crowler::Crowler(AbstractAPI *m_api, AbstractIdListGeneratorStrategy *m_lg, int *m_fd) {
+Crowler::Crowler(AbstractAPI *m_api, AbstractIdListGeneratorStrategy *m_lg) {
     api = m_api;
     lg = m_lg;
-    fd = m_fd;
 }
 
 void add(Container cont) {
 
 }
 
-void Crowler::startCrowl() {
 
-    int *buf = new int[1];
-    read(fd[0], buf, sizeof(buf));
-    while (buf[0] != stopState) {
-        read(fd[0], buf, sizeof(buf));
-        id_list = lg->generate();
-        for (const auto &id: id_list) {
-            std::vector<url> photoUrls = api->getPhotoUrlsById(id);
-            Container cont = getContainerFromUrls(photoUrls);
-            add(cont);
-        }
-    }
-    close(fd[0]);
-    delete[] buf;
+void Crowler::startCrowl() {
+    t = new boost::thread(boost::bind(&Crowler::crowl, this));
+
 }
 
-void Crowler::stopCrowlAndSaveIdList() {
 
-    int *testbuf = new int[1];
-    testbuf[0] = stopState;
-    write(fd[1], testbuf, sizeof(testbuf));
-    close(fd[1]);
-    delete[] testbuf;
+void save() {
+    std::cout << "zaseyvil"; //TODO save v BD
+}
+
+
+void Crowler::stopCrowl() {
+    t->interrupt();
+
+}
+
+void Crowler::crowl() {
+
+    while (true) {
+        try {
+            std::vector<url> id_list = lg->generate();
+            for (const auto &id: id_list) {
+                std::vector<url> photoUrls = api->getPhotoUrlsById(id);
+                for (auto &data: photoUrls) {
+                    std::cout << data.toStr() << std::endl;
+                }
+
+            }
+        }
+        catch (boost::thread_interrupted &) {
+            save();
+        }
+    }
+
 }

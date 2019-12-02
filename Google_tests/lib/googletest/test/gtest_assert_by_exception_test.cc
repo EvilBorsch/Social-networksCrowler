@@ -64,55 +64,56 @@ static void AssertFalse() {
 TEST(Test, Test
 ) {
 // A successful assertion shouldn't throw.
-try {
-EXPECT_EQ(3, 3);
-} catch(...) {
-Fail("A successful assertion wrongfully threw.");
-}
+    try {
+        EXPECT_EQ(3, 3);
+    } catch (...) {
+        Fail("A successful assertion wrongfully threw.");
+    }
 
 // A successful assertion shouldn't throw.
-try {
-EXPECT_EQ(3, 4);
-} catch(...) {
-Fail("A failed non-fatal assertion wrongfully threw.");
-}
+    try {
+        EXPECT_EQ(3, 4);
+    } catch (...) {
+        Fail("A failed non-fatal assertion wrongfully threw.");
+    }
 
 // A failed assertion should throw.
-try {
-AssertFalse();
+    try {
+        AssertFalse();
 
-} catch(
-const testing::AssertionException &e
-) {
-if (
-strstr(e
-.
+    } catch (
+            const testing::AssertionException &e
+    ) {
+        if (
+                strstr(e
+                               .
 
-what(),
+                                       what(),
 
-"Expected failure") != nullptr) throw;
+                       "Expected failure") != nullptr)
+            throw;
 
-printf("%s",
-"A failed assertion did throw an exception of the right type, "
-"but the message is incorrect.  Instead of containing \"Expected "
-"failure\", it is:\n");
-Fail(e
-.
+        printf("%s",
+               "A failed assertion did throw an exception of the right type, "
+               "but the message is incorrect.  Instead of containing \"Expected "
+               "failure\", it is:\n");
+        Fail(e
+                     .
 
-what()
+                             what()
 
-);
-} catch(...) {
-Fail("A failed assertion threw the wrong type of exception.");
-}
-Fail("A failed assertion should've thrown but didn't.");
+        );
+    } catch (...) {
+        Fail("A failed assertion threw the wrong type of exception.");
+    }
+    Fail("A failed assertion should've thrown but didn't.");
 }
 
 int kTestForContinuingTest = 0;
 
 TEST(Test, Test2
 ) {
-kTestForContinuingTest = 1;
+    kTestForContinuingTest = 1;
 }
 
 int main(int argc, char **argv) {

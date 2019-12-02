@@ -43,244 +43,244 @@ namespace {
 // Tests the default constructor.
     TEST(MessageTest, DefaultConstructor
     ) {
-    const Message msg;
-    EXPECT_EQ("", msg.
+        const Message msg;
+        EXPECT_EQ("", msg.
 
-    GetString()
+                GetString()
 
-    );
-}
+        );
+    }
 
 // Tests the copy constructor.
-TEST(MessageTest, CopyConstructor
-) {
-const Message msg1("Hello");
-const Message msg2(msg1);
-EXPECT_EQ("Hello", msg2.
+    TEST(MessageTest, CopyConstructor
+    ) {
+        const Message msg1("Hello");
+        const Message msg2(msg1);
+        EXPECT_EQ("Hello", msg2.
 
-GetString()
+                GetString()
 
-);
-}
+        );
+    }
 
 // Tests constructing a Message from a C-string.
-TEST(MessageTest, ConstructsFromCString
-) {
-Message msg("Hello");
-EXPECT_EQ("Hello", msg.
+    TEST(MessageTest, ConstructsFromCString
+    ) {
+        Message msg("Hello");
+        EXPECT_EQ("Hello", msg.
 
-GetString()
+                GetString()
 
-);
-}
+        );
+    }
 
 // Tests streaming a float.
-TEST(MessageTest, StreamsFloat
-) {
-const std::string s = (Message() << 1.23456F << " " << 2.34567F).GetString();
+    TEST(MessageTest, StreamsFloat
+    ) {
+        const std::string s = (Message() << 1.23456F << " " << 2.34567F).GetString();
 // Both numbers should be printed with enough precision.
-EXPECT_PRED_FORMAT2(testing::IsSubstring,
-"1.234560", s.
+        EXPECT_PRED_FORMAT2(testing::IsSubstring,
+                            "1.234560", s.
 
-c_str()
+                c_str()
 
-);
-EXPECT_PRED_FORMAT2(testing::IsSubstring,
-" 2.345669", s.
+        );
+        EXPECT_PRED_FORMAT2(testing::IsSubstring,
+                            " 2.345669", s.
 
-c_str()
+                c_str()
 
-);
-}
+        );
+    }
 
 // Tests streaming a double.
-TEST(MessageTest, StreamsDouble
-) {
-const std::string s = (Message() << 1260570880.4555497 << " "
-                                 << 1260572265.1954534).GetString();
+    TEST(MessageTest, StreamsDouble
+    ) {
+        const std::string s = (Message() << 1260570880.4555497 << " "
+                                         << 1260572265.1954534).GetString();
 // Both numbers should be printed with enough precision.
-EXPECT_PRED_FORMAT2(testing::IsSubstring,
-"1260570880.45", s.
+        EXPECT_PRED_FORMAT2(testing::IsSubstring,
+                            "1260570880.45", s.
 
-c_str()
+                c_str()
 
-);
-EXPECT_PRED_FORMAT2(testing::IsSubstring,
-" 1260572265.19", s.
+        );
+        EXPECT_PRED_FORMAT2(testing::IsSubstring,
+                            " 1260572265.19", s.
 
-c_str()
+                c_str()
 
-);
-}
+        );
+    }
 
 // Tests streaming a non-char pointer.
-TEST(MessageTest, StreamsPointer
-) {
-int n = 0;
-int *p = &n;
-EXPECT_NE("(null)", (
+    TEST(MessageTest, StreamsPointer
+    ) {
+        int n = 0;
+        int *p = &n;
+        EXPECT_NE("(null)", (
 
-Message()
+                Message()
 
-<< p).
+                        << p).
 
-GetString()
+                GetString()
 
-);
-}
+        );
+    }
 
 // Tests streaming a NULL non-char pointer.
-TEST(MessageTest, StreamsNullPointer
-) {
-int *p = nullptr;
-EXPECT_EQ("(null)", (
+    TEST(MessageTest, StreamsNullPointer
+    ) {
+        int *p = nullptr;
+        EXPECT_EQ("(null)", (
 
-Message()
+                Message()
 
-<< p).
+                        << p).
 
-GetString()
+                GetString()
 
-);
-}
+        );
+    }
 
 // Tests streaming a C string.
-TEST(MessageTest, StreamsCString
-) {
-EXPECT_EQ("Foo", (
+    TEST(MessageTest, StreamsCString
+    ) {
+        EXPECT_EQ("Foo", (
 
-Message()
+                Message()
 
-<< "Foo").
+                        << "Foo").
 
-GetString()
+                GetString()
 
-);
-}
+        );
+    }
 
 // Tests streaming a NULL C string.
-TEST(MessageTest, StreamsNullCString
-) {
-char *p = nullptr;
-EXPECT_EQ("(null)", (
+    TEST(MessageTest, StreamsNullCString
+    ) {
+        char *p = nullptr;
+        EXPECT_EQ("(null)", (
 
-Message()
+                Message()
 
-<< p).
+                        << p).
 
-GetString()
+                GetString()
 
-);
-}
+        );
+    }
 
 // Tests streaming std::string.
-TEST(MessageTest, StreamsString
-) {
-const ::std::string str("Hello");
-EXPECT_EQ("Hello", (
+    TEST(MessageTest, StreamsString
+    ) {
+        const ::std::string str("Hello");
+        EXPECT_EQ("Hello", (
 
-Message()
+                Message()
 
-<< str).
+                        << str).
 
-GetString()
+                GetString()
 
-);
-}
+        );
+    }
 
 // Tests that we can output strings containing embedded NULs.
-TEST(MessageTest, StreamsStringWithEmbeddedNUL
-) {
-const char char_array_with_nul[] =
-        "Here's a NUL\0 and some more string";
-const ::std::string string_with_nul(char_array_with_nul,
-                                    sizeof(char_array_with_nul) - 1);
-EXPECT_EQ("Here's a NUL\\0 and some more string",
-(
+    TEST(MessageTest, StreamsStringWithEmbeddedNUL
+    ) {
+        const char char_array_with_nul[] =
+                "Here's a NUL\0 and some more string";
+        const ::std::string string_with_nul(char_array_with_nul,
+                                            sizeof(char_array_with_nul) - 1);
+        EXPECT_EQ("Here's a NUL\\0 and some more string",
+                  (
 
-Message()
+                          Message()
 
-<< string_with_nul).
+                                  << string_with_nul).
 
-GetString()
+                          GetString()
 
-);
-}
+        );
+    }
 
 // Tests streaming a NUL char.
-TEST(MessageTest, StreamsNULChar
-) {
-EXPECT_EQ("\\0", (
+    TEST(MessageTest, StreamsNULChar
+    ) {
+        EXPECT_EQ("\\0", (
 
-Message()
+                Message()
 
-<< '\0').
+                        << '\0').
 
-GetString()
+                GetString()
 
-);
-}
+        );
+    }
 
 // Tests streaming int.
-TEST(MessageTest, StreamsInt
-) {
-EXPECT_EQ("123", (
+    TEST(MessageTest, StreamsInt
+    ) {
+        EXPECT_EQ("123", (
 
-Message()
+                Message()
 
-<< 123).
+                        << 123).
 
-GetString()
+                GetString()
 
-);
-}
+        );
+    }
 
 // Tests that basic IO manipulators (endl, ends, and flush) can be
 // streamed to Message.
-TEST(MessageTest, StreamsBasicIoManip
-) {
-EXPECT_EQ("Line 1.\nA NUL char \\0 in line 2.",
-(
+    TEST(MessageTest, StreamsBasicIoManip
+    ) {
+        EXPECT_EQ("Line 1.\nA NUL char \\0 in line 2.",
+                  (
 
-Message()
+                          Message()
 
-<< "Line 1." << std::endl
-<< "A NUL char " << std::ends << std::flush
-<< " in line 2.").
+                                  << "Line 1." << std::endl
+                                  << "A NUL char " << std::ends << std::flush
+                                  << " in line 2.").
 
-GetString()
+                          GetString()
 
-);
-}
+        );
+    }
 
 // Tests Message::GetString()
-TEST(MessageTest, GetString
-) {
-Message msg;
-msg << 1 << " lamb";
-EXPECT_EQ("1 lamb", msg.
+    TEST(MessageTest, GetString
+    ) {
+        Message msg;
+        msg << 1 << " lamb";
+        EXPECT_EQ("1 lamb", msg.
 
-GetString()
+                GetString()
 
-);
-}
+        );
+    }
 
 // Tests streaming a Message object to an ostream.
-TEST(MessageTest, StreamsToOStream
-) {
-Message msg("Hello");
-::std::stringstream ss;
-ss <<
-msg;
-EXPECT_EQ("Hello",
-testing::internal::StringStreamToString(&ss)
-);
-}
+    TEST(MessageTest, StreamsToOStream
+    ) {
+        Message msg("Hello");
+        ::std::stringstream ss;
+        ss <<
+           msg;
+        EXPECT_EQ("Hello",
+                  testing::internal::StringStreamToString(&ss)
+        );
+    }
 
 // Tests that a Message object doesn't take up too much stack space.
-TEST(MessageTest, DoesNotTakeUpMuchStackSpace
-) {
-EXPECT_LE(sizeof(Message), 16U);
-}
+    TEST(MessageTest, DoesNotTakeUpMuchStackSpace
+    ) {
+        EXPECT_LE(sizeof(Message), 16U);
+    }
 
 }  // namespace

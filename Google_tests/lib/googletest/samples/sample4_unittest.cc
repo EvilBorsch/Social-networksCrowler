@@ -36,39 +36,39 @@ namespace {
 
     TEST(Counter, Increment
     ) {
-    Counter c;
+        Counter c;
 
-    // Test that counter 0 returns 0
-    EXPECT_EQ(0, c.
+        // Test that counter 0 returns 0
+        EXPECT_EQ(0, c.
 
-    Decrement()
+                Decrement()
 
-    );
+        );
 
-    // EXPECT_EQ() evaluates its arguments exactly once, so they
-    // can have side effects.
+        // EXPECT_EQ() evaluates its arguments exactly once, so they
+        // can have side effects.
 
-    EXPECT_EQ(0, c.
+        EXPECT_EQ(0, c.
 
-    Increment()
+                Increment()
 
-    );
-    EXPECT_EQ(1, c.
+        );
+        EXPECT_EQ(1, c.
 
-    Increment()
+                Increment()
 
-    );
-    EXPECT_EQ(2, c.
+        );
+        EXPECT_EQ(2, c.
 
-    Increment()
+                Increment()
 
-    );
+        );
 
-    EXPECT_EQ(3, c.
+        EXPECT_EQ(3, c.
 
-    Decrement()
+                Decrement()
 
-    );
-}
+        );
+    }
 
 }  // namespace

@@ -48,123 +48,123 @@ namespace {
 
     TEST_F(FooTest, Abc
     ) {
-}
+    }
 
-TEST_F(FooTest, Xyz
-) {
-FAIL()
+    TEST_F(FooTest, Xyz
+    ) {
+        FAIL()
 
-<< "Expected failure.";
-}
+                        << "Expected failure.";
+    }
 
 // Test case BarTest.
 
-TEST(BarTest, TestOne
-) {
-}
+    TEST(BarTest, TestOne
+    ) {
+    }
 
-TEST(BarTest, TestTwo
-) {
-}
+    TEST(BarTest, TestTwo
+    ) {
+    }
 
-TEST(BarTest, TestThree
-) {
-}
+    TEST(BarTest, TestThree
+    ) {
+    }
 
-TEST(BarTest, DISABLED_TestFour
-) {
-FAIL()
+    TEST(BarTest, DISABLED_TestFour
+    ) {
+        FAIL()
 
-<< "Expected failure.";
-}
+                        << "Expected failure.";
+    }
 
-TEST(BarTest, DISABLED_TestFive
-) {
-FAIL()
+    TEST(BarTest, DISABLED_TestFive
+    ) {
+        FAIL()
 
-<< "Expected failure.";
-}
+                        << "Expected failure.";
+    }
 
 // Test case BazTest.
 
-TEST(BazTest, TestOne
-) {
-FAIL()
+    TEST(BazTest, TestOne
+    ) {
+        FAIL()
 
-<< "Expected failure.";
-}
+                        << "Expected failure.";
+    }
 
-TEST(BazTest, TestA
-) {
-}
+    TEST(BazTest, TestA
+    ) {
+    }
 
-TEST(BazTest, TestB
-) {
-}
+    TEST(BazTest, TestB
+    ) {
+    }
 
-TEST(BazTest, DISABLED_TestC
-) {
-FAIL()
+    TEST(BazTest, DISABLED_TestC
+    ) {
+        FAIL()
 
-<< "Expected failure.";
-}
+                        << "Expected failure.";
+    }
 
 // Test case HasDeathTest
 
-TEST(HasDeathTest, Test1
-) {
-EXPECT_DEATH_IF_SUPPORTED(exit(1),
-".*");
-}
+    TEST(HasDeathTest, Test1
+    ) {
+        EXPECT_DEATH_IF_SUPPORTED(exit(1),
+                                  ".*");
+    }
 
 // We need at least two death tests to make sure that the all death tests
 // aren't on the first shard.
-TEST(HasDeathTest, Test2
-) {
-EXPECT_DEATH_IF_SUPPORTED(exit(1),
-".*");
-}
+    TEST(HasDeathTest, Test2
+    ) {
+        EXPECT_DEATH_IF_SUPPORTED(exit(1),
+                                  ".*");
+    }
 
 // Test case FoobarTest
 
-TEST(DISABLED_FoobarTest, Test1
-) {
-FAIL()
+    TEST(DISABLED_FoobarTest, Test1
+    ) {
+        FAIL()
 
-<< "Expected failure.";
-}
+                        << "Expected failure.";
+    }
 
-TEST(DISABLED_FoobarTest, DISABLED_Test2
-) {
-FAIL()
+    TEST(DISABLED_FoobarTest, DISABLED_Test2
+    ) {
+        FAIL()
 
-<< "Expected failure.";
-}
+                        << "Expected failure.";
+    }
 
 // Test case FoobarbazTest
 
-TEST(DISABLED_FoobarbazTest, TestA
-) {
-FAIL()
+    TEST(DISABLED_FoobarbazTest, TestA
+    ) {
+        FAIL()
 
-<< "Expected failure.";
-}
+                        << "Expected failure.";
+    }
 
-class ParamTest : public testing::TestWithParam<int> {
-};
+    class ParamTest : public testing::TestWithParam<int> {
+    };
 
-TEST_P(ParamTest, TestX
-) {
-}
+    TEST_P(ParamTest, TestX
+    ) {
+    }
 
-TEST_P(ParamTest, TestY
-) {
-}
+    TEST_P(ParamTest, TestY
+    ) {
+    }
 
-INSTANTIATE_TEST_SUITE_P(SeqP, ParamTest, testing::Values(1, 2)
-);
-INSTANTIATE_TEST_SUITE_P(SeqQ, ParamTest, testing::Values(5, 6)
-);
+    INSTANTIATE_TEST_SUITE_P(SeqP, ParamTest, testing::Values(1, 2)
+    );
+    INSTANTIATE_TEST_SUITE_P(SeqQ, ParamTest, testing::Values(5, 6)
+    );
 
 }  // namespace
 

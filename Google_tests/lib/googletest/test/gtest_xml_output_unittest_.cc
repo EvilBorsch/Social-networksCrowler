@@ -50,10 +50,10 @@ class SuccessfulTest : public Test {
 
 TEST_F(SuccessfulTest, Succeeds
 ) {
-SUCCEED()
+    SUCCEED()
 
-<< "This is a success.";
-ASSERT_EQ(1, 1);
+            << "This is a success.";
+    ASSERT_EQ(1, 1);
 }
 
 class FailedTest : public Test {
@@ -61,7 +61,7 @@ class FailedTest : public Test {
 
 TEST_F(FailedTest, Fails
 ) {
-ASSERT_EQ(1, 2);
+    ASSERT_EQ(1, 2);
 }
 
 class DisabledTest : public Test {
@@ -69,9 +69,9 @@ class DisabledTest : public Test {
 
 TEST_F(DisabledTest, DISABLED_test_not_run
 ) {
-FAIL()
+    FAIL()
 
-<< "Unexpected failure: Disabled test should not be run";
+                    << "Unexpected failure: Disabled test should not be run";
 }
 
 class SkippedTest : public Test {
@@ -79,44 +79,44 @@ class SkippedTest : public Test {
 
 TEST_F(SkippedTest, Skipped
 ) {
-GTEST_SKIP();
+    GTEST_SKIP();
 
 }
 
 TEST(MixedResultTest, Succeeds
 ) {
-EXPECT_EQ(1, 1);
-ASSERT_EQ(1, 1);
+    EXPECT_EQ(1, 1);
+    ASSERT_EQ(1, 1);
 }
 
 TEST(MixedResultTest, Fails
 ) {
-EXPECT_EQ(1, 2);
-ASSERT_EQ(2, 3);
+    EXPECT_EQ(1, 2);
+    ASSERT_EQ(2, 3);
 }
 
 TEST(MixedResultTest, DISABLED_test
 ) {
-FAIL()
+    FAIL()
 
-<< "Unexpected failure: Disabled test should not be run";
+                    << "Unexpected failure: Disabled test should not be run";
 }
 
 TEST(XmlQuotingTest, OutputsCData
 ) {
-FAIL()
+    FAIL()
 
-<< "XML output: "
-"<?xml encoding=\"utf-8\"><top><![CDATA[cdata text]]></top>";
+                    << "XML output: "
+                       "<?xml encoding=\"utf-8\"><top><![CDATA[cdata text]]></top>";
 }
 
 // Helps to test that invalid characters produced by test code do not make
 // it into the XML file.
 TEST(InvalidCharactersTest, InvalidCharactersInMessage
 ) {
-FAIL()
+    FAIL()
 
-<< "Invalid characters in brackets [\x1\x2]";
+                    << "Invalid characters in brackets [\x1\x2]";
 }
 
 class PropertyRecordingTest : public Test {
@@ -130,30 +130,30 @@ public:
 
 TEST_F(PropertyRecordingTest, OneProperty
 ) {
-RecordProperty("key_1", "1");
+    RecordProperty("key_1", "1");
 }
 
 TEST_F(PropertyRecordingTest, IntValuedProperty
 ) {
-RecordProperty("key_int", 1);
+    RecordProperty("key_int", 1);
 }
 
 TEST_F(PropertyRecordingTest, ThreeProperties
 ) {
-RecordProperty("key_1", "1");
-RecordProperty("key_2", "2");
-RecordProperty("key_3", "3");
+    RecordProperty("key_1", "1");
+    RecordProperty("key_2", "2");
+    RecordProperty("key_3", "3");
 }
 
 TEST_F(PropertyRecordingTest, TwoValuesForOneKeyUsesLastValue
 ) {
-RecordProperty("key_1", "1");
-RecordProperty("key_1", "2");
+    RecordProperty("key_1", "1");
+    RecordProperty("key_1", "2");
 }
 
 TEST(NoFixtureTest, RecordProperty
 ) {
-RecordProperty("key", "1");
+    RecordProperty("key", "1");
 }
 
 void ExternalUtilityThatCallsRecordProperty(const std::string &key, int value) {
@@ -167,12 +167,12 @@ void ExternalUtilityThatCallsRecordProperty(const std::string &key,
 
 TEST(NoFixtureTest, ExternalUtilityThatCallsRecordIntValuedProperty
 ) {
-ExternalUtilityThatCallsRecordProperty("key_for_utility_int", 1);
+    ExternalUtilityThatCallsRecordProperty("key_for_utility_int", 1);
 }
 
 TEST(NoFixtureTest, ExternalUtilityThatCallsRecordStringValuedProperty
 ) {
-ExternalUtilityThatCallsRecordProperty("key_for_utility_string", "1");
+    ExternalUtilityThatCallsRecordProperty("key_for_utility_string", "1");
 }
 
 // Verifies that the test parameter value is output in the 'value_param'
@@ -183,28 +183,40 @@ class ValueParamTest : public TestWithParam<int> {
 TEST_P(ValueParamTest, HasValueParamAttribute
 ) {
 }
+
 TEST_P(ValueParamTest, AnotherTestThatHasValueParamAttribute
 ) {
 }
+
 INSTANTIATE_TEST_SUITE_P(Single, ValueParamTest, Values(33, 42)
 );
 
 #if GTEST_HAS_TYPED_TEST
+
 // Verifies that the type parameter name is output in the 'type_param'
 // XML attribute for typed tests.
-template <typename T> class TypedTest : public Test {};
+template<typename T>
+class TypedTest : public Test {
+};
+
 typedef testing::Types<int, long> TypedTestTypes;
 TYPED_TEST_SUITE(TypedTest, TypedTestTypes);
+
 TYPED_TEST(TypedTest, HasTypeParamAttribute) {}
+
 #endif
 
 #if GTEST_HAS_TYPED_TEST_P
+
 // Verifies that the type parameter name is output in the 'type_param'
 // XML attribute for type-parameterized tests.
-template <typename T>
-class TypeParameterizedTestSuite : public Test {};
+template<typename T>
+class TypeParameterizedTestSuite : public Test {
+};
+
 TYPED_TEST_SUITE_P(TypeParameterizedTestSuite);
 TYPED_TEST_P(TypeParameterizedTestSuite, HasTypeParamAttribute) {}
+
 REGISTER_TYPED_TEST_SUITE_P(TypeParameterizedTestSuite, HasTypeParamAttribute);
 typedef testing::Types<int, long> TypeParameterizedTestSuiteTypes;  // NOLINT
 INSTANTIATE_TYPED_TEST_SUITE_P(Single, TypeParameterizedTestSuite,

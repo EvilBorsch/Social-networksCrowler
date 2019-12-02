@@ -41,8 +41,7 @@ protected:
 
 
 TEST_F(TestAPI, testvk) {
-    url m_url;
-    m_url.getVkPhotosRequestUrl(vk->getToken(), "184059480");
+    url m_url("id184059480", "vk");
 
     url temp1("https://sun9-52.userapi.com/c840232/v840232112/8561d/Y-q_hZJtpDk.jpg");
     url temp2("https://sun9-35.userapi.com/c847122/v847122689/2137f/pdHUHTavt1U.jpg");
@@ -50,10 +49,12 @@ TEST_F(TestAPI, testvk) {
     url temp4("https://sun9-14.userapi.com/c844321/v844321164/1e3f38/sjVui97PcoU.jpg");
     vector<url> vk_get_photo_ans = {temp1, temp2, temp3, temp4};
 
-    std::vector<url> vec=vk->getPhotoUrlsById(m_url);
+    std::vector<url> vec = vk->getPhotoUrlsById(m_url);
 
     EXPECT_EQ(vk->getPhotoUrlsById(m_url), vk_get_photo_ans);
 
+
+    /*
     url temp5("/sergeiptrnk", "vk");
     url temp6("/id358547266", "vk");
     url temp7("/nukenova2016", "vk");
@@ -70,10 +71,11 @@ TEST_F(TestAPI, testvk) {
 
     EXPECT_EQ(vk->getFriendsUrlsById(friendsId), vk_get_friends_ans);
     EXPECT_EQ(vk->getGroupParticipants(groupId), vk_get_group_ans);
+     */
 
-    url photoId2("id289472284");
-    url friendsId2("id12313");
-    url groupId2("a_4_autism");
+    url photoId2("id289472284", "vk");
+    url friendsId2("id12313", "vk");
+    url groupId2("a_4_autism", "vk");
 
 
     EXPECT_EQ(vk->getFriendsUrlsById(friendsId2), vector<url>());
@@ -199,17 +201,16 @@ protected:
 TEST_F(TestListGenerator, test_vk_lg) {
 
 
-
     std::vector<url> vec = vk_lg->generate();
 
-    std::vector<url> res={url("id=1235","vk"),
-                          url("id=1236","vk"),
-                          url("id=1237","vk"),
-                          url("id=1238","vk"),
-                          url("id=1239","vk")};
+    std::vector<url> res = {url("id1235", "vk"),   //TODO дописать еще несколько тестов
+                            url("id1236", "vk"),
+                            url("id1237", "vk"),
+                            url("id1238", "vk"),
+                            url("id1239", "vk")};
 
-    EXPECT_EQ(vec,res);
 
+    EXPECT_EQ(vec, res);
 
 
 }

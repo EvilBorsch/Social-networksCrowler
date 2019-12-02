@@ -20,7 +20,6 @@ response NetService::request(url mUrl) {
         curl_easy_setopt(curl_handle, CURLOPT_URL,
                          test.c_str());
 
-
         curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, write_data);
         curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &content);
 

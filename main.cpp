@@ -1,6 +1,7 @@
 #include "NetService/NetService.h"
 #include "API/VkAPI.h"
 #include "Id_list_generator_strategy/Vk_id_list_generator_strategy.h"
+#include "Crowler/Crowler.h"
 
 
 int main(int argc, char *argv[]) {
@@ -26,8 +27,8 @@ int main(int argc, char *argv[]) {
 
 
 
-
     VkIdListGeneratorStrategy vkId(6, "/Users/dmitrijgulacenkov/CrowlerDump/vkId.txt", vk.getToken());
+    /*
     std::vector<url> vec = vkId.generate();
     for (auto test :vec) {
         std::cout << test.toStr() << std::endl;
@@ -37,6 +38,15 @@ int main(int argc, char *argv[]) {
         }
         vkId.save();
     }
+     */
+
+
+
+
+    Crowler cr(&vk, &vkId);
+    cr.startCrowl();
+    cr.wait(5);
+    cr.stopCrowl();
 
 
 }
