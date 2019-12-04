@@ -1,6 +1,7 @@
 #include <map>
 #include <boost/property_tree/ptree.hpp>
 #include "../url/url.h"
+#include <boost/property_tree/json_parser.hpp>
 
 class response {
 private:
@@ -8,9 +9,10 @@ private:
     boost::property_tree::ptree pt;
 public:
 
-    void parse(const std::string &st);
-
-    std::string get_body();
+    void parse(const std::string &st){
+        std::stringstream ss(st);
+        boost::property_tree::read_json(ss, pt);
+    };
 
     explicit response(const std::string &st) {
         parse(st);
@@ -20,5 +22,5 @@ public:
         return pt;
     }
 
-    std::vector<std::string> getByKey(const std::string &key);
+
 };
