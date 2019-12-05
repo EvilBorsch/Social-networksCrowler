@@ -26,9 +26,6 @@ public:
 
     Crowler(AbstractAPI *m_api, AbstractIdListGeneratorStrategy *m_lg);
 
-    void wait(int seconds) {
-        boost::this_thread::sleep_for(boost::chrono::seconds{seconds});
-    }
 
 
 };

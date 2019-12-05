@@ -1,6 +1,5 @@
 #include "Crowler.h"
 #include <iostream>
-#include <unistd.h>
 
 
 Container Crowler::getContainerFromUrls(const std::vector<url> &urls) {

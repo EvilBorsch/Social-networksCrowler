@@ -24,6 +24,10 @@ response NetService::request(url mUrl) {
         curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &content);
 
         CURLcode res = curl_easy_perform(curl_handle);
+        if(res != CURLE_OK) {
+            std::cout << "No internet Connection"; //TODO Запилить ошибку  нормально
+            throw "inet err";
+        }
         std::cout << content;
 
         curl_easy_cleanup(curl_handle);
