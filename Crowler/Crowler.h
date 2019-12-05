@@ -10,13 +10,13 @@ class Container {
 
 class Crowler {
     const int stopState = 2;
-    AbstractIdListGeneratorStrategy *lg;
+    std::shared_ptr<AbstractIdListGeneratorStrategy> lg;
     boost::thread *t;
 
     Container getContainerFromUrls(const std::vector<url> &urls);
 
 
-    AbstractAPI *api;
+    std::shared_ptr<AbstractAPI> api;
 public:
     void startCrowl();
 
@@ -24,8 +24,7 @@ public:
 
     void stopCrowl();
 
-    Crowler(AbstractAPI *m_api, AbstractIdListGeneratorStrategy *m_lg);
-
+    Crowler(std::shared_ptr<AbstractAPI> m_api, std::shared_ptr<AbstractIdListGeneratorStrategy> m_lg);
 
 
 };

@@ -7,10 +7,10 @@ Container Crowler::getContainerFromUrls(const std::vector<url> &urls) {
 }
 
 
-Crowler::Crowler(AbstractAPI *m_api, AbstractIdListGeneratorStrategy *m_lg) {
+Crowler::Crowler(std::shared_ptr<AbstractAPI> m_api, std::shared_ptr<AbstractIdListGeneratorStrategy> m_lg) {
     api = m_api;
     lg = m_lg;
-}
+};
 
 void add(Container cont) {
 

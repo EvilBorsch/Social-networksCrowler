@@ -6,8 +6,8 @@
 
 int main(int argc, char *argv[]) {
 
-    VkAPI vk("asd");
-    vk.login();
+
+
 
 
 
@@ -27,7 +27,11 @@ int main(int argc, char *argv[]) {
 
 
 
-    VkIdListGeneratorStrategy vkId(6, "/Users/dmitrijgulacenkov/CrowlerDump/vkId.txt", vk.getToken());
+    std::shared_ptr<VkAPI> vk=std::make_shared<VkAPI>("asd");
+    vk->login();
+
+    std::shared_ptr<VkIdListGeneratorStrategy> vkId=std::make_shared<VkIdListGeneratorStrategy>(6, "/Users/dmitrijgulacenkov/CrowlerDump/vkId.txt", vk->getToken());
+
     /*
     std::vector<url> vec = vkId.generate();
     for (auto test :vec) {
@@ -43,9 +47,12 @@ int main(int argc, char *argv[]) {
 
 
 
-    Crowler cr(&vk, &vkId);
-    cr.startCrowl();
 
+
+
+    Crowler cr(vk, vkId);
+    cr.startCrowl();
+    sleep(2);
     cr.stopCrowl();
 
 
