@@ -10,7 +10,6 @@ class Container {
 
 
 class Crowler {
-    const int stopState = 2;
     std::shared_ptr<AbstractIdListGeneratorStrategy> lg;
     std::thread *t;
 

@@ -9,7 +9,6 @@ private:
     std::string token;
     std::string app_key;
 public:
-    [[nodiscard]] const std::string &getToken() const;
 
     std::vector<url> getPhotoUrlsById(const url &url) override;
 

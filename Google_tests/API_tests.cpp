@@ -30,11 +30,9 @@ protected:
     }
 
 
-
     std::shared_ptr<VkAPI> vk;
     std::shared_ptr<OkAPI> ok;
     std::shared_ptr<FacebookAPI> facebook;
-
 
 
 };
@@ -170,11 +168,10 @@ protected:
 
     void SetUp() override {
 
-        vk_lg = std::make_shared<VkIdListGeneratorStrategy>(5,pathvk);
-        ok_lg = std::make_shared<OkIdListGeneratorStrategy>(5,pathok);
-        facebook_lg = std::make_shared<FacebookIdListGeneratorStrategy>(5,pathfacebook);
+        vk_lg = std::make_shared<VkIdListGeneratorStrategy>(5, pathvk);
+        ok_lg = std::make_shared<OkIdListGeneratorStrategy>(5, pathok);
+        facebook_lg = std::make_shared<FacebookIdListGeneratorStrategy>(5, pathfacebook);
     }
-
 
 
     string pathvk = "/Users/dmitrijgulacenkov/CrowlerDump/CrowlerTest/vkId.txt";
@@ -185,8 +182,6 @@ protected:
 
 
     string pathokfriends = "../../test_ok_friends.txt";
-
-
 
 
     std::shared_ptr<VkIdListGeneratorStrategy> vk_lg;
@@ -201,7 +196,7 @@ TEST_F(TestListGenerator, test_vk_lg) {
 
     std::vector<url> vec = vk_lg->generate();
 
-    std::vector<url> res = {url("id1235", "vk"),   //TODO дописать еще несколько тестов
+    std::vector<url> res = {url("id1235", "vk"),
                             url("id1236", "vk"),
                             url("id1237", "vk"),
                             url("id1238", "vk"),
@@ -250,15 +245,18 @@ TEST_F(TestListGenerator, test_facebook_lg) {
 }
 
 
-
-
 TEST(CurlTests, Curltest) {
     NetService curler;
     response m_response = curler.request(
             url("https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.103"));
 
-    string right_answer = R"({"error":{"error_code":5,"error_msg":"User authorization failed: invalid access_token (4).","request_params":[{"key":"user_ids","value":"210700286"},{"key":"fields","value":"bdate"},{"key":"v","value":"5.103"},{"key":"method","value":"users.get"},{"key":"oauth","value":"1"}]}})";
 
+    response m_response2 = curler.request(
+            url("https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=ajshdkjashdkjhaskjdh533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.103"));
+
+
+
+    EXPECT_EQ(m_response.getData(), m_response2.getData());
 
 
 }

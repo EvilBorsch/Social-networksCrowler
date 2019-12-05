@@ -17,9 +17,6 @@ void add(Container cont) {
 }
 
 
-void save() {
-    std::cout << "zaseyvil"; //TODO save v BD
-}
 
 
 Crowler::Crowler(std::shared_ptr<AbstractAPI> m_api, std::shared_ptr<AbstractIdListGeneratorStrategy> m_lg) {

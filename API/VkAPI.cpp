@@ -25,6 +25,7 @@ vector<url> VkAPI::getPhotoUrlsById(const url &m_url) {
     url requestUrl;
     requestUrl.getVkPhotosRequestUrl(token, m_url.getVkId());
     response resp = net.request(requestUrl);
+
     std::vector<url> vec;
     getPhotosBySizeInResponseData(resp.getData(), vec);
 
@@ -53,6 +54,3 @@ void VkAPI::login() {
 
 }
 
-const string &VkAPI::getToken() const {
-    return token;
-}
