@@ -27,10 +27,12 @@ int main(int argc, char *argv[]) {
 
 
 
-    std::shared_ptr<VkAPI> vk=std::make_shared<VkAPI>("asd");
+    std::shared_ptr<VkAPI> vk = std::make_shared<VkAPI>("asd");
     vk->login();
 
-    std::shared_ptr<VkIdListGeneratorStrategy> vkId=std::make_shared<VkIdListGeneratorStrategy>(6, "/Users/dmitrijgulacenkov/CrowlerDump/vkId.txt", vk->getToken());
+    std::shared_ptr<VkIdListGeneratorStrategy> vkId = std::make_shared<VkIdListGeneratorStrategy>(6,
+                                                                                                  "/Users/dmitrijgulacenkov/CrowlerDump/vkId.txt"
+                                                                                                  );
 
     /*
     std::vector<url> vec = vkId.generate();
@@ -50,10 +52,22 @@ int main(int argc, char *argv[]) {
 
 
 
-    Crowler cr(vk, vkId);
-    cr.startCrowl();
-    sleep(2);
-    cr.stopCrowl();
+    //Crowler cr(vk, vkId);
+    //cr.startCrowl();
+    //sleep(2);
+    //cr.stopCrowl();
+
+
+    url m_url("id184059480", "vk");
+
+    url temp1("https://sun9-52.userapi.com/c840232/v840232112/8561d/Y-q_hZJtpDk.jpg");
+    url temp2("https://sun9-35.userapi.com/c847122/v847122689/2137f/pdHUHTavt1U.jpg");
+    url temp3("https://sun9-60.userapi.com/c850224/v850224350/186544/v6ooSacR0r0.jpg");
+    url temp4("https://sun9-14.userapi.com/c844321/v844321164/1e3f38/sjVui97PcoU.jpg");
+    std::vector<url> vk_get_photo_ans = {temp1, temp2, temp3, temp4};
+
+    std::vector<url> vec = vk->getPhotoUrlsById(m_url);
+
 
 
 }

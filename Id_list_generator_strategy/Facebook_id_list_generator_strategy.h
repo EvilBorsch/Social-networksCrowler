@@ -14,4 +14,7 @@ public:
     }
 
     std::vector<url> generate() override;
+    void save() override {
+
+    }
 };

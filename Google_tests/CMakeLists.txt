@@ -14,7 +14,7 @@ add_executable(Google_Tests_run API_tests.cpp ../API/VkAPI.h ../API/VkAPI.cpp
         ../API/FacebookAPI.cpp ../API/FacebookAPI.h
         ../Id_list_generator_strategy/Facebook_id_list_generator_strategy.cpp
         ../Id_list_generator_strategy/Facebook_id_list_generator_strategy.h
-        ../NetService/NetService.h ../NetService/NetService.cpp ../Crowler/Crowler.h ../Crowler/Crowler.cpp ../Id_list_generator_strategy/Ok_id_list_generator_strategy_friends_method.cpp ../Id_list_generator_strategy/Ok_id_list_generator_strategy_friends_method.h
+        ../NetService/NetService.h ../NetService/NetService.cpp ../Crowler/Crowler.h ../Crowler/Crowler.cpp
         ../url/url.h ../response/response.h ../response/response.cpp)
 target_link_libraries(Google_Tests_run gtest gtest_main)
 target_link_libraries(Google_Tests_run ${Boost_LIBRARIES})

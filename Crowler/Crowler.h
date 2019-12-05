@@ -1,7 +1,8 @@
 #include "../AbstractClasses/AbstractAPI.h"
 #include "../AbstractClasses/Abstract_id_list_generator_strategy.h"
-#include <boost/thread.hpp>
-#include <boost/chrono.hpp>
+#include <thread>
+#include <atomic>
+#include <chrono>
 
 class Container {
 
@@ -11,7 +12,8 @@ class Container {
 class Crowler {
     const int stopState = 2;
     std::shared_ptr<AbstractIdListGeneratorStrategy> lg;
-    boost::thread *t;
+    std::thread *t;
+
 
     Container getContainerFromUrls(const std::vector<url> &urls);
 
