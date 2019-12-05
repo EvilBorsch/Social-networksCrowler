@@ -1,5 +1,6 @@
 #include "Crowler.h"
 #include <iostream>
+#include <utility>
 
 
 Container Crowler::getContainerFromUrls(const std::vector<url> &urls) {
@@ -8,8 +9,8 @@ Container Crowler::getContainerFromUrls(const std::vector<url> &urls) {
 
 
 Crowler::Crowler(std::shared_ptr<AbstractAPI> m_api, std::shared_ptr<AbstractIdListGeneratorStrategy> m_lg) {
-    api = m_api;
-    lg = m_lg;
+    api = std::move(m_api);
+    lg = std::move(m_lg);
 };
 
 void add(Container cont) {
