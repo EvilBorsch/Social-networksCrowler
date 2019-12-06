@@ -1,10 +1,19 @@
 #include "FacebookAPI.h"
 
 
+bool isDefault(const std::string &photoUrl) {
+    std::string type;
+    const int lastBackSlashPositionPlusOne = 8;
+    const int lastBackSlashPositionPlusLengthOfStaticPlusOne = 14;
+    std::copy(photoUrl.begin() + lastBackSlashPositionPlusOne,
+              photoUrl.begin() + lastBackSlashPositionPlusLengthOfStaticPlusOne, std::back_inserter(type));
+    return type == "static";
+}
+
 std::vector<url> findPhotoUrlInResponse(boost::property_tree::ptree pt) {
     auto photoUrl = pt.begin()->second.get<std::string>("url");
     std::vector<url> vec;
-    vec.emplace_back(url(photoUrl));
+    if (!isDefault(photoUrl)) vec.emplace_back(url(photoUrl));
     return vec;
 }
 
@@ -19,7 +28,8 @@ std::vector<url> FacebookAPI::getPhotoUrlsById(const url &mUrl) {
     url requestUrl;
     std::vector<url> vec;
     std::string id = mUrl.getFacebookId();
-    requestUrl.getFacebookPictureGetRequest(id);
+    const std::string maxSizeOfPicture = "1000";
+    requestUrl.getFacebookPictureRequest(id, maxSizeOfPicture);
     response resp = net.request(requestUrl);
     if (isCorrect(resp)) vec = findPhotoUrlInResponse(resp.getData());
     return vec;

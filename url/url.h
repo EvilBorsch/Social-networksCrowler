@@ -109,12 +109,17 @@ public:
     }
 
 
-    void getFacebookPictureGetRequest(const std::string &id) {
+    void getFacebookPictureRequest(const std::string &id, const std::string &sizeOfPicture) {
         protocol = "https://";
         host = "graph.facebook.com";
-        base_url = "/v5.0/" + id + "/picture?type=large&redirect=false";
+        base_url = "/v5.0/" + id + "/picture?height=" + sizeOfPicture + "&redirect=false";
     }
 
+    void facebookStyleId(const std::string &id) {
+        protocol = "https://";
+        host = "facebook.com";
+        base_url = "profile.php?id=" + id;
+    }
 };
 
 #endif //KURSACH_FINAL_URL_H

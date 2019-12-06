@@ -28,7 +28,6 @@ response NetService::request(url mUrl) {
             std::cout << "No internet Connection"; //TODO Запилить ошибку  нормально
             throw "inet err";
         }
-        std::cout << content;
 
         curl_easy_cleanup(curl_handle);
     }
