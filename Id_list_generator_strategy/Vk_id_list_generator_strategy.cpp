@@ -5,7 +5,7 @@ std::vector<url> VkIdListGeneratorStrategy::generate() {
 
     url mUrl;
     std::vector<url> vec;
-    for (size_t i = currentId; i < currentId + size; i++) {
+    for (size_t i = currentId + 1; i < currentId + 1 + size; i++) {
 
         mUrl.vkStyleId(std::to_string(i));
         vec.push_back(mUrl);
@@ -23,7 +23,7 @@ size_t VkIdListGeneratorStrategy::getCurrentId() {
 
 void VkIdListGeneratorStrategy::save() { //TODO этот метод должен взаимодействовать с БД
     std::ofstream fout(path);
-    currentId += size + 1;
+    currentId += size;
     fout << currentId;
 
 

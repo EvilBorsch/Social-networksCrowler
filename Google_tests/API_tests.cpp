@@ -52,42 +52,15 @@ TEST_F(TestAPI, testvk) {
     EXPECT_EQ(vec, vk_get_photo_ans);
 
 
-    /*
-    url temp5("/sergeiptrnk", "vk");
-    url temp6("/id358547266", "vk");
-    url temp7("/nukenova2016", "vk");
-    url temp8("/id399688365", "vk");
-    url temp9("/id418671513", "vk");
-
-    vector<url> vk_get_friends_ans = {temp5};
-    vector<url> vk_get_group_ans = {temp6, temp7, temp8, temp9};
-
-    url photoId("id184059480");
-    url friendsId("id289472284");
-    url groupId("club143457610");
-
-
-    EXPECT_EQ(vk->getFriendsUrlsById(friendsId), vk_get_friends_ans);
-    EXPECT_EQ(vk->getGroupParticipants(groupId), vk_get_group_ans);
-     */
-
     url photoId2("id289472284", "vk");
-    url friendsId2("id12313", "vk");
-    url groupId2("a_4_autism", "vk");
 
 
-    EXPECT_EQ(vk->getFriendsUrlsById(friendsId2), vector<url>());
-    EXPECT_EQ(vk->getGroupParticipants(groupId2), vector<url>());
     EXPECT_EQ(vk->getPhotoUrlsById(photoId2), vector<url>());
 
 
     url photoId3("id1askdhjaskljh2313");
-    url friendsId3("a_asdjkhaskjdh4_autism");
-    url groupId3("id2894asjdhgaskjdh72284");
 
 
-    EXPECT_EQ(vk->getFriendsUrlsById(friendsId3), vector<url>());
-    EXPECT_EQ(vk->getGroupParticipants(groupId3), vector<url>());
     EXPECT_EQ(vk->getPhotoUrlsById(photoId3), vector<url>());
 
 }
@@ -96,30 +69,20 @@ TEST_F(TestAPI, testvk) {
 TEST_F(TestAPI, testok) {
     url temp1("575941399764/pphotos/879711732436");
     url temp2("593221215274/pphotos/889758673450");
-    url temp3("593221211482");
-    url temp4("593221215274");
+
 
     vector<url> ok_get_photo_ans = {temp1, temp2};
-    vector<url> ok_get_friends_ans = {temp3};
-    vector<url> ok_get_group_ans = {temp4};
 
 
     url photoId("593221215274");
-    url friendsId("593221215274");
-    url groupId("61557801746474");
 
 
     EXPECT_EQ(ok->getPhotoUrlsById(photoId), ok_get_photo_ans);
-    EXPECT_EQ(ok->getFriendsUrlsById(friendsId), ok_get_friends_ans);
-    EXPECT_EQ(ok->getGroupParticipants(groupId), ok_get_group_ans);
+
 
     url photoId2("593221215274");
-    url friendsId2("593221215274");
-    url groupId2("61557801746474");
 
 
-    EXPECT_EQ(ok->getFriendsUrlsById(friendsId2), vector<url>());
-    EXPECT_EQ(ok->getGroupParticipants(groupId2), vector<url>());
     EXPECT_EQ(ok->getPhotoUrlsById(photoId2), vector<url>());
 
 
@@ -132,31 +95,14 @@ TEST_F(TestAPI, test_facebook) {
 
 
     url photoId("100043040207420");
-    url friendsId("100043040207420");
-    url groupId("2558160454233543");
-
-    url temp3("100026228050639");
-    url temp4("100026228050639");
-
-    vector<url> facebook_get_friends_ans = {temp3};
-    vector<url> facebook_get_group_ans = {temp4};
 
 
     EXPECT_EQ(facebook->getPhotoUrlsById(photoId),
               facebook_get_photo_ans);
-    EXPECT_EQ(facebook->getFriendsUrlsById(friendsId),
-              facebook_get_friends_ans);
-    EXPECT_EQ(facebook->getGroupParticipants(groupId),
-              facebook_get_group_ans);
 
 
     url photoId2("100043040207420ahsjdhja");
-    url friendsId2("551899082309567");
-    url groupId2("55189908230956asdjhasjdhj7");
 
-    EXPECT_EQ(facebook->getFriendsUrlsById(friendsId2),
-              vector<url>());
-    EXPECT_EQ(facebook->getGroupParticipants(groupId2), vector<url>());
 
     EXPECT_EQ(facebook->getPhotoUrlsById(photoId2), vector<url>());
 
@@ -253,7 +199,6 @@ TEST(CurlTests, Curltest) {
 
     response m_response2 = curler.request(
             url("https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=ajshdkjashdkjhaskjdh533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.103"));
-
 
 
     EXPECT_EQ(m_response.getData(), m_response2.getData());

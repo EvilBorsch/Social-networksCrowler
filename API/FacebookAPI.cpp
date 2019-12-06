@@ -11,14 +11,6 @@ FacebookAPI::FacebookAPI(const std::string &app_key) {
 
 }
 
-vector<url> FacebookAPI::getFriendsUrlsById(const url &url) {
-    return {};
-}
-
-vector<url> FacebookAPI::getGroupParticipants(const url &url) {
-    return {};
-}
-
 void FacebookAPI::login() {
 
 }

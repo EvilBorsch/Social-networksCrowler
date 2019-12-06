@@ -13,7 +13,7 @@ void getPhotosBySizeInResponseData(boost::property_tree::ptree const &pt, std::v
     for (ptree::const_iterator it = pt.begin(); it != end; ++it) {
         if (it->first == "type" && it->second.get_value<std::string>() == size) {
             it++;
-            vec.push_back(url(it->second.get_value<std::string>()));
+            vec.emplace_back(url(it->second.get_value<std::string>()));
             continue;
         }
         getPhotosBySizeInResponseData(it->second, vec, size);
@@ -21,13 +21,21 @@ void getPhotosBySizeInResponseData(boost::property_tree::ptree const &pt, std::v
     }
 }
 
+
+bool isError(response resp) {
+
+    boost::property_tree::ptree pt = resp.getData();
+    if (pt.begin()->first == "error") return true;
+    return false;
+}
+
+
 vector<url> VkAPI::getPhotoUrlsById(const url &m_url) {
     url requestUrl;
     requestUrl.getVkPhotosRequestUrl(token, m_url.getVkId());
     response resp = net.request(requestUrl);
-
     std::vector<url> vec;
-    getPhotosBySizeInResponseData(resp.getData(), vec);
+    if (!isError(resp)) getPhotosBySizeInResponseData(resp.getData(), vec);
 
     return vec;
 
@@ -36,14 +44,6 @@ vector<url> VkAPI::getPhotoUrlsById(const url &m_url) {
 
 VkAPI::VkAPI(const string &m_app_key) {
     app_key = m_app_key;
-}
-
-vector<url> VkAPI::getFriendsUrlsById(const url &url) {
-    return {};
-}
-
-vector<url> VkAPI::getGroupParticipants(const url &url) {
-    return {};
 }
 
 void VkAPI::login() {
