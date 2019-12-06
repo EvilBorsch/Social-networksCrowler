@@ -5,12 +5,13 @@
 
 class FacebookAPI : public AbstractAPI {
 private:
-    NetService curler;
     std::string token;
+    std::string app_key;
+    std::string secret_key;
 public:
-    std::vector<url> getPhotoUrlsById(const url &url) override;
+    std::vector<url> getPhotoUrlsById(const url &mUrl) override;
 
-    explicit FacebookAPI(const std::string &app_key);
+    FacebookAPI(const std::string &mapp_key, const std::string &msecret_key);
 
     void login() override;
 

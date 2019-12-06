@@ -10,13 +10,14 @@ private:
     std::string base_url = "";
     std::string protocol = "";
     std::string host = "";
+
     void parse(const std::string &mUrl) {
 
-        const size_t firstNotSlashChar=8;
-        std::copy(mUrl.begin(), mUrl.begin() + 8, std::back_inserter(protocol)); //TODO дописать все через copy в url
+        const size_t firstNotSlashChar = 8;
+        std::copy(mUrl.begin(), mUrl.begin() + 8, std::back_inserter(protocol));
 
 
-        std::string temp_data = "";
+        std::string temp_data;
         size_t baseUrlIndex = 0;
         for (size_t i = firstNotSlashChar; i < mUrl.length(); i++) {
             baseUrlIndex = i;
@@ -36,7 +37,7 @@ private:
 
 public:
 
-    explicit url(const std::string &st, const std::string type = "full") {
+    explicit url(const std::string &st, const std::string &type = "full") {
         if (type == "vk") {
             protocol = "https://";
             host = "vk.com";
@@ -47,8 +48,8 @@ public:
             base_url = "/" + st;
         } else if (type == "facebook") {
             protocol = "https://";
-            host = "ok.ru";
-            base_url = "/" + st;
+            host = "facebook.com";
+            base_url = "/profile.php?" + st;
         } else {
             parse(st);
         }
@@ -60,8 +61,6 @@ public:
     }
 
 
-
-
     void vkStyleId(std::string id) {
         protocol = "https://";
         host = "vk.com";
@@ -70,15 +69,15 @@ public:
 
 
     std::string getVkId() const {
-        std::string id = "";
-        const size_t firstDigit=3;
+        std::string id;
+        const size_t firstDigit = 3;
         for (size_t i = firstDigit; i < base_url.size(); i++) {
             id += base_url[i];
         }
         return id;
     }
 
-    void getVkPhotosRequestUrl(std::string token, std::string id) {
+    void getVkPhotosRequestUrl(std::string &token, std::string id) {
         protocol = "https://";
         host = "api.vk.com";
 
@@ -87,19 +86,34 @@ public:
     }
 
 
-
-
     friend bool operator==(const url &m_url1, const url &m_url2) {
-        if (m_url1.base_url == m_url2.base_url) {
-            if (m_url1.host == m_url2.host &&
-                m_url1.protocol == m_url2.protocol)
-                return true;
-        }
-        return false;
+        return (m_url1.base_url == m_url2.base_url);
     }
 
 
     url() = default;
+
+    void getFacebookLoginRequest(const std::string &app_key, const std::string &secret_key) {
+        protocol = "https://";
+        host = "graph.facebook.com";
+        base_url = "/oauth/access_token?client_id=" + app_key + "&client_secret=" + secret_key +
+                   "&grant_type=client_credentials";
+    }
+
+
+    std::string getFacebookId() const {
+        const int firstDigitPosition = 16;
+        std::string id;
+        std::copy(base_url.begin() + firstDigitPosition, base_url.end(), std::back_inserter(id));
+        return id;
+    }
+
+
+    void getFacebookPictureGetRequest(const std::string &id) {
+        protocol = "https://";
+        host = "graph.facebook.com";
+        base_url = "/v5.0/" + id + "/picture?type=large&redirect=false";
+    }
 
 };
 

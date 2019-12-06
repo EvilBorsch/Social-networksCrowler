@@ -5,7 +5,6 @@
 
 class OkAPI : public AbstractAPI {
 private:
-    NetService curler;
     std::string token;
 public:
     std::vector<url> getPhotoUrlsById(const url &url) override;

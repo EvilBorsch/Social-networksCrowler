@@ -24,7 +24,7 @@ protected:
         vk->login();
         ok = std::make_shared<OkAPI>("512000155176");
         ok->login();
-        facebook = std::make_shared<FacebookAPI>("424256728258093");
+        facebook = std::make_shared<FacebookAPI>("579642939271889", "54350e9fd703fa4510992914b7907d31");
         facebook->login();
 
     }
@@ -89,22 +89,31 @@ TEST_F(TestAPI, testok) {
 }
 
 TEST_F(TestAPI, test_facebook) {
-    url temp1("113498916761448&set=a.113453566765983&type=3&theater");
-    url temp2("113453540099319&set=a.113453566765983&type=3&theater");
-    vector<url> facebook_get_photo_ans = {temp1, temp2};
+    //url temp1("113498916761448&set=a.113453566765983&type=3&theater");
+    //url temp2("113453540099319&set=a.113453566765983&type=3&theater");
+    //vector<url> facebook_get_photo_ans = {temp1, temp2};
+
+    url mUrl("id=100043040207420", "facebook");
+    std::vector<url> vec = facebook->getPhotoUrlsById(mUrl);
+    EXPECT_EQ(vec[0].toStr(),
+              "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/74394721_113498920094781_7916501690130366464_n.jpg?_nc_cat=106&_nc_ohc=1Hq29VKwkEUAQnqoiPB1EGbH3XfLutz-E_QvmQ0KrTDnPutcXjbsTMf_g&_nc_ht=scontent.xx&oh=3378590c6f267a35ec972fe274ac6fcc&oe=5E761E15");
+
+    url mUrl2("id=100043askdklasj040207420", "facebook");
+    std::vector<url> vec2 = facebook->getPhotoUrlsById(mUrl2);
+    EXPECT_EQ(vec2, vector<url>());
 
 
-    url photoId("100043040207420");
+    //url photoId("100043040207420");
 
 
-    EXPECT_EQ(facebook->getPhotoUrlsById(photoId),
-              facebook_get_photo_ans);
+    //EXPECT_EQ(facebook->getPhotoUrlsById(photoId),
+    //         facebook_get_photo_ans);
 
 
-    url photoId2("100043040207420ahsjdhja");
+    //url photoId2("100043040207420ahsjdhja");
 
 
-    EXPECT_EQ(facebook->getPhotoUrlsById(photoId2), vector<url>());
+    //EXPECT_EQ(facebook->getPhotoUrlsById(photoId2), vector<url>());
 
 }
 

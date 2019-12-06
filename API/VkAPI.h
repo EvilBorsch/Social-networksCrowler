@@ -5,7 +5,6 @@
 
 class VkAPI : public AbstractAPI {
 private:
-    NetService net;
     std::string token;
     std::string app_key;
 public:

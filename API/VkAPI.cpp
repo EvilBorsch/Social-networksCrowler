@@ -1,9 +1,6 @@
 #include "VkAPI.h"
 
 
-using std::vector, std::string;
-
-
 void getPhotosBySizeInResponseData(boost::property_tree::ptree const &pt, std::vector<url> &vec,
                                    const std::string &size = "z") {
     using boost::property_tree::ptree;
@@ -25,12 +22,14 @@ void getPhotosBySizeInResponseData(boost::property_tree::ptree const &pt, std::v
 bool isError(response resp) {
 
     boost::property_tree::ptree pt = resp.getData();
-    if (pt.begin()->first == "error") return true;
-    return false;
+    return (pt.begin()->first == "error");
+
 }
 
 
-vector<url> VkAPI::getPhotoUrlsById(const url &m_url) {
+std::vector<url> VkAPI::getPhotoUrlsById(const url &m_url) {
+
+    NetService net;
     url requestUrl;
     requestUrl.getVkPhotosRequestUrl(token, m_url.getVkId());
     response resp = net.request(requestUrl);
@@ -42,7 +41,7 @@ vector<url> VkAPI::getPhotoUrlsById(const url &m_url) {
 }
 
 
-VkAPI::VkAPI(const string &m_app_key) {
+VkAPI::VkAPI(const std::string &m_app_key) {
     app_key = m_app_key;
 }
 

@@ -2,7 +2,7 @@
 #include "API/VkAPI.h"
 #include "Id_list_generator_strategy/Vk_id_list_generator_strategy.h"
 #include "Crowler/Crowler.h"
-
+#include "Api/FacebookAPI.h"
 
 int main(int argc, char *argv[]) {
 
@@ -52,12 +52,19 @@ int main(int argc, char *argv[]) {
 
 
 
-    Crowler cr(vk, vkId);
-    cr.startCrowl();
-    sleep(100);
-    cr.stopCrowl();
+    //Crowler cr(vk, vkId);
+    //cr.startCrowl();
+    //sleep(100);
+    //cr.stopCrowl();
 
 
+
+    std::shared_ptr<FacebookAPI> facebook = std::make_shared<FacebookAPI>("579642939271889",
+                                                                          "54350e9fd703fa4510992914b7907d31");
+    facebook->login();
+    url mUrl("id=100043040207420", "facebook");
+    std::vector<url> vec = facebook->getPhotoUrlsById(mUrl);
+    std::cout << vec[0].toStr();
 
 
 }
