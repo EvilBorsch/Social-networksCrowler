@@ -68,7 +68,7 @@ public:
     }
 
 
-    std::string getVkId() const {
+    [[nodiscard]] std::string getVkId() const {
         std::string id;
         const size_t firstDigit = 3;
         for (size_t i = firstDigit; i < base_url.size(); i++) {
@@ -101,7 +101,7 @@ public:
     }
 
 
-    std::string getFacebookId() const {
+    [[nodiscard]] std::string getFacebookId() const {
         const int firstDigitPosition = 16;
         std::string id;
         std::copy(base_url.begin() + firstDigitPosition, base_url.end(), std::back_inserter(id));
@@ -118,7 +118,7 @@ public:
     void facebookStyleId(const std::string &id) {
         protocol = "https://";
         host = "facebook.com";
-        base_url = "profile.php?id=" + id;
+        base_url = "/profile.php?id=" + id;
     }
 };
 

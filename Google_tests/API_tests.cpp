@@ -96,8 +96,7 @@ TEST_F(TestAPI, test_facebook) {
     url mUrl("id=100043040207420", "facebook");
     std::vector<url> vec = facebook->getPhotoUrlsById(mUrl);
     EXPECT_EQ(vec[0].toStr(),
-              "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/74394721_113498920094781_7916501690130366464_n.jpg?_nc_cat=106&_nc_ohc=1Hq29VKwkEUAQnqoiPB1EGbH3XfLutz-E_QvmQ0KrTDnPutcXjbsTMf_g&_nc_ht=scontent.xx&oh=3378590c6f267a35ec972fe274ac6fcc&oe=5E761E15");
-
+              "https://scontent.xx.fbcdn.net/v/t1.0-1/74394721_113498920094781_7916501690130366464_n.jpg?_nc_cat=106&_nc_ohc=1Hq29VKwkEUAQnqoiPB1EGbH3XfLutz-E_QvmQ0KrTDnPutcXjbsTMf_g&_nc_ht=scontent.xx&oh=820e1c03b27b4c2b52210dfa50e127a9&oe=5E7AFA4E");
     url mUrl2("id=100043askdklasj040207420", "facebook");
     std::vector<url> vec2 = facebook->getPhotoUrlsById(mUrl2);
     EXPECT_EQ(vec2, vector<url>());
@@ -133,10 +132,7 @@ protected:
 
     string pathok = "../../test_ok.txt";
 
-    string pathfacebook = "../../test_facebook.txt";
-
-
-    string pathokfriends = "../../test_ok_friends.txt";
+    string pathfacebook = "/Users/dmitrijgulacenkov/CrowlerDump/CrowlerTest/facebookId.txt";
 
 
     std::shared_ptr<VkIdListGeneratorStrategy> vk_lg;
@@ -182,21 +178,13 @@ TEST_F(TestListGenerator, test_ok_lg) {
 }
 
 TEST_F(TestListGenerator, test_facebook_lg) {
-    vector<url> vec = {url("100026228050631"), url("100026228050632"), url("100026228050633"), url("100026228050634"),
-                       url("100026228050635")};
-
-    std::ofstream fout(pathfacebook, std::ios_base::out);
-
-    for (auto &el:vec) {
-        fout << el.toStr();
-    }
-    fout.close();
+    vector<url> ans = {url("id=1235", "facebook"), url("id=1236", "facebook"), url("id=1237", "facebook"),
+                       url("id=1238", "facebook"),
+                       url("id=1239", "facebook")};
+    std::vector<url> vec = facebook_lg->generate();
 
 
-    vector<url> generate_data = {url("100026228050636"), url("100026228050637"), url("100026228050638"),
-                                 url("100026228050639"), url("100026228050640")};
-
-    EXPECT_EQ(facebook_lg->generate(), generate_data);
+    EXPECT_EQ(vec, ans);
 }
 
 

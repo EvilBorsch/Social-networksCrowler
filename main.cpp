@@ -52,11 +52,12 @@ int main(int argc, char *argv[]) {
 
 
 
-
-    //Crowler cr(vk, vkId);
-    //cr.startCrowl();
-    //sleep(100);
-    //cr.stopCrowl();
+    /*
+    Crowler cr(vk, vkId);
+    cr.startCrowl();
+    sleep(100);
+    cr.stopCrowl();
+     */
 
     std::shared_ptr<FacebookIdListGeneratorStrategy> facebook_lg = std::make_shared<FacebookIdListGeneratorStrategy>(6,
                                                                                                                      "/Users/dmitrijgulacenkov/CrowlerDump/facebookId.txt");
@@ -69,5 +70,6 @@ int main(int argc, char *argv[]) {
     cr.startCrowl();
     sleep(100);
     cr.stopCrowl();
+
 
 }
