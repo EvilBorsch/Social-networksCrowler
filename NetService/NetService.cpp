@@ -14,18 +14,17 @@ static size_t write_data(char *ptr, size_t size, size_t nmemb, std::string *data
 response NetService::request(url mUrl) {
     CURL *curl_handle;
     curl_handle = curl_easy_init();
-    std::string test = mUrl.toStr();
+    std::string strUrl = mUrl.toStr();
     std::string content = "";
     if (curl_handle) {
         curl_easy_setopt(curl_handle, CURLOPT_URL,
-                         test.c_str());
+                         strUrl.c_str());
 
         curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, write_data);
         curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, &content);
 
         CURLcode res = curl_easy_perform(curl_handle);
         if(res != CURLE_OK) {
-            std::cout << "No internet Connection"; //TODO Запилить ошибку  нормально
             throw "inet err";
         }
 
