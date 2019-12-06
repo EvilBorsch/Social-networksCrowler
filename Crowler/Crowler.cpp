@@ -48,10 +48,7 @@ void Crowler::crowl() {
 
         }
 
-        if (thread_must_end.load()) {
-
-            break;
-        }
+        if (thread_must_end.load()) break;
         lg->save();
 
     }
