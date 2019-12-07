@@ -70,7 +70,7 @@ public:
     [[nodiscard]] std::string getVkId() const {
         std::string id;
         const size_t firstDigit = 2;
-        std::copy(base_url.begin() + firstDigit, base_url.end(), std::back_inserter(id));
+        if (base_url!="")std::copy(base_url.begin() + firstDigit, base_url.end(), std::back_inserter(id));
         return id;
     }
 

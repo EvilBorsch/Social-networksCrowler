@@ -96,7 +96,7 @@ TEST_F(TestAPI, test_facebook) {
     url mUrl("id=100043040207420", "facebook");
     std::vector<url> vec = facebook->getPhotoUrlsById(mUrl);
     EXPECT_EQ(vec[0].toStr(),
-              "https://scontent.xx.fbcdn.net/v/t1.0-1/74394721_113498920094781_7916501690130366464_n.jpg?_nc_cat=106&_nc_ohc=1Hq29VKwkEUAQnqoiPB1EGbH3XfLutz-E_QvmQ0KrTDnPutcXjbsTMf_g&_nc_ht=scontent.xx&oh=820e1c03b27b4c2b52210dfa50e127a9&oe=5E7AFA4E");
+              "https://scontent.xx.fbcdn.net/v/t1.0-1/74394721_113498920094781_7916501690130366464_n.jpg?_nc_cat=106&_nc_ohc=1Hq29VKwkEUAQnBJKFtmCztLho7_fP4mWJ6nFO6UBhBKDB0fnCUFJ29LQ&_nc_ht=scontent.xx&oh=9d6a74eda6a04e48bb7ccf27d2759b27&oe=5E7AFA4E");
     url mUrl2("id=100043askdklasj040207420", "facebook");
     std::vector<url> vec2 = facebook->getPhotoUrlsById(mUrl2);
     EXPECT_EQ(vec2, vector<url>());
@@ -202,3 +202,10 @@ TEST(CurlTests, Curltest) {
 
 
 }
+
+
+
+
+
+
+

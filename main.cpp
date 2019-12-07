@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
 
     Crowler cr(vk, vkId);
     cr.startCrowl();
-    sleep(100);
+    sleep(6);
     cr.stopCrowl();
 
 

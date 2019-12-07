@@ -25,7 +25,7 @@ response NetService::request(url mUrl) {
 
         CURLcode res = curl_easy_perform(curl_handle);
         if(res != CURLE_OK) {
-            throw "inet err";
+            throw "No intrenet connection";
         }
 
         curl_easy_cleanup(curl_handle);
