@@ -4,9 +4,7 @@
 #include <atomic>
 #include <chrono>
 
-class Container {
-
-};
+class Container {}; // из библиотеки Александра
 
 
 class Crowler {

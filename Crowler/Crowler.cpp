@@ -8,11 +8,12 @@
 std::atomic<bool> thread_must_end(false);
 
 Container Crowler::getContainerFromUrls(const std::vector<url> &urls) {
+
     return {};
 }
 
 
-void add(Container cont) {
+void addToBd(const Container& cont) { //Функция из библиотеки александра
 
 }
 
@@ -42,9 +43,12 @@ void Crowler::crowl() {
         std::vector<url> id_list = lg->generate();
         for (const auto &id: id_list) {
             std::vector<url> photoUrls = api->getPhotoUrlsById(id);
-            for (auto &data: photoUrls) {
-                std::cout << data.toStr() << std::endl;
-            }
+            //for (auto &data: photoUrls) {
+            //    std::cout << data.toStr() << std::endl;
+            //}
+            Container cont=getContainerFromUrls(photoUrls);
+            addToBd(cont);
+
 
         }
 

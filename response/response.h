@@ -4,22 +4,14 @@
 
 class response {
 private:
-    //std::map<std::string, std::string> mp;
     boost::property_tree::ptree pt;
 public:
 
-    void parse(const std::string &st){
-        std::stringstream ss(st);
-        boost::property_tree::read_json(ss, pt);
-    };
+    void parse(const std::string &st);
 
-    explicit response(const std::string &st) {
-        parse(st);
-    }
+    explicit response(const std::string &st);
 
-    boost::property_tree::ptree getData() {
-        return pt;
-    }
+    boost::property_tree::ptree getData();
 
 
 };
