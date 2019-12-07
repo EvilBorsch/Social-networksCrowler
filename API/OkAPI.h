@@ -1,5 +1,5 @@
-#include "../AbstractClasses/AbstractAPI.h"
-#include "../NetService/NetService.h"
+#include "AbstractClasses/AbstractAPI.h"
+#include "NetService/NetService.h"
 
 #pragma once
 

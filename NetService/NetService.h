@@ -1,6 +1,6 @@
 #include <string>
-#include "../response/response.h"
-#include "../url/url.h"
+#include "response/response.h"
+#include "url/url.h"
 
 #pragma once
 

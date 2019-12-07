@@ -1,5 +1,5 @@
-#include "../AbstractClasses/AbstractAPI.h"
-#include "../AbstractClasses/Abstract_id_list_generator_strategy.h"
+#include "AbstractClasses/AbstractAPI.h"
+#include "AbstractClasses/Abstract_id_list_generator_strategy.h"
 #include <thread>
 #include <atomic>
 #include <chrono>

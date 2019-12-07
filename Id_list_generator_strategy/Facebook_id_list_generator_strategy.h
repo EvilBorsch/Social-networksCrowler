@@ -1,5 +1,5 @@
-#include "../AbstractClasses/Abstract_id_list_generator_strategy.h"
-#include "../url/url.h"
+#include "AbstractClasses/Abstract_id_list_generator_strategy.h"
+#include "url/url.h"
 
 
 class FacebookIdListGeneratorStrategy : public AbstractIdListGeneratorStrategy {

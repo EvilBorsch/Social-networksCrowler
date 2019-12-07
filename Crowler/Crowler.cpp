@@ -42,7 +42,7 @@ void Crowler::crowl() {
             std::vector<url> photoUrls = api->getPhotoUrlsById(id);
             for (auto &data: photoUrls) {
                 addToBd(vectorize(data.toStr()), data.toStr());
-                //std::cout<< data.toStr() << std::endl;
+                std::cout<< data.toStr() << std::endl;
             }
         }
         lg->save();
