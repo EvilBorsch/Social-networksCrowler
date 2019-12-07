@@ -3,7 +3,7 @@ add_subdirectory(lib)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 
-find_package(Boost COMPONENTS system filesystem thread chrono REQUIRED)
+find_package(Boost COMPONENTS system filesystem REQUIRED)
 
 include_directories(${Boost_INCLUDE_DIRS})
 add_executable(Google_Tests_run API_tests.cpp ../API/VkAPI.h ../API/VkAPI.cpp
