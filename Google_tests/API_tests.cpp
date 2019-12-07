@@ -128,11 +128,11 @@ protected:
     }
 
 
-    string pathvk = "/Users/dmitrijgulacenkov/CrowlerDump/CrowlerTest/vkId.txt";
+    string pathvk = "../../Google_tests/TestsData/CrowlerTest/vkId.txt";
 
     string pathok = "../../test_ok.txt";
 
-    string pathfacebook = "/Users/dmitrijgulacenkov/CrowlerDump/CrowlerTest/facebookId.txt";
+    string pathfacebook = "../../Google_tests/TestsData/CrowlerTest/facebookId.txt";
 
 
     std::shared_ptr<VkIdListGeneratorStrategy> vk_lg;
