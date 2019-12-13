@@ -3,8 +3,6 @@
 #include <utility>
 
 
-
-
 void addToBd(const std::vector<double> &vec, const std::string &url) {} //Функция из библиотеки александра
 
 
@@ -20,7 +18,7 @@ void Crowler::startCrowl() {
 }
 
 void Crowler::stopCrowl() {
-    thread_must_end=(true);
+    thread_must_end = true;
 
 }
 
@@ -38,9 +36,10 @@ void Crowler::crowl() {
             std::vector<url> photoUrls = api->getPhotoUrlsById(id);
             for (auto &data: photoUrls) {
                 addToBd(vectorize(data.toStr()), data.toStr());
-                std::cout<< data.toStr() << std::endl;
+                std::cout << data.toStr() << std::endl;
             }
         }
+
         lg->save();
         if (thread_must_end) break;
 

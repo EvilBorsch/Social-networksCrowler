@@ -5,12 +5,11 @@
 #include <chrono>
 
 
-
 class Crowler {
     std::shared_ptr<AbstractIdListGeneratorStrategy> lg;
     std::thread *t;
     std::shared_ptr<AbstractAPI> api;
-    bool thread_must_end=false;
+    bool thread_must_end = false;
 
 public:
     void startCrowl();
