@@ -9,9 +9,6 @@ std::atomic<bool> thread_must_end(false);
 void addToBd(const std::vector<double> &vec, const std::string &url) {} //Функция из библиотеки александра
 
 
-
-
-
 Crowler::Crowler(std::shared_ptr<AbstractAPI> m_api, std::shared_ptr<AbstractIdListGeneratorStrategy> m_lg) {
     api = std::move(m_api);
     lg = std::move(m_lg);
