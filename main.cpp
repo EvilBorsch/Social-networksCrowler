@@ -26,13 +26,16 @@ int main(int argc, char *argv[]) {
 
     Crowler crFace(facebook, facebook_lg);
     Crowler cr(vk, vkId);
-    cr.startCrowl();
-
-    crFace.startCrowl();
-    sleep(4);
-    cr.stopCrowl();
-    sleep(4);
-    crFace.stopCrowl();
-
+    Crowler cr2(vk, vkId);
+//    cr.startCrowl();
+//    cr2.startCrowl();
+//    crFace.startCrowl();
+//    sleep(4);
+//    cr.stopCrowl();
+//    sleep(4);
+//    crFace.stopCrowl();
+//    sleep(10);
+//    cr2.stopCrowl();
+//
 
 }

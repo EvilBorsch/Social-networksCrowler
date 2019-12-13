@@ -3,7 +3,6 @@
 #include <utility>
 
 
-std::atomic<bool> thread_must_end(false);
 
 
 void addToBd(const std::vector<double> &vec, const std::string &url) {} //Функция из библиотеки александра
@@ -12,7 +11,7 @@ void addToBd(const std::vector<double> &vec, const std::string &url) {} //Фун
 Crowler::Crowler(std::shared_ptr<AbstractAPI> m_api, std::shared_ptr<AbstractIdListGeneratorStrategy> m_lg) {
     api = std::move(m_api);
     lg = std::move(m_lg);
-};
+}
 
 
 void Crowler::startCrowl() {
@@ -21,7 +20,7 @@ void Crowler::startCrowl() {
 }
 
 void Crowler::stopCrowl() {
-    thread_must_end.store(true);
+    thread_must_end=(true);
 
 }
 
@@ -43,7 +42,7 @@ void Crowler::crowl() {
             }
         }
         lg->save();
-        if (thread_must_end.load()) break;
+        if (thread_must_end) break;
 
     }
 
